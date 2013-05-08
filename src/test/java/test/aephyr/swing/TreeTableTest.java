@@ -26,7 +26,7 @@ import javax.swing.tree.*;
 import aephyr.swing.TreeTable;
 import aephyr.swing.event.TreeTableSorterEvent;
 import aephyr.swing.event.TreeTableSorterListener;
-import aephyr.swing.mnemonic.*;
+// import aephyr.swing.mnemonic.*;
 import aephyr.swing.treetable.*;
 
 public class TreeTableTest implements Runnable, ItemListener {
@@ -140,7 +140,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		new MnemonicGenerator().addMnemonics(frame.getRootPane());
+		// new MnemonicGenerator().addMnemonics(frame.getRootPane());
 		frame.setVisible(true);
 
 	}
