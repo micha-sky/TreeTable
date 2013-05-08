@@ -330,7 +330,7 @@ public class TreeTable extends JComponent implements Scrollable {
 				if (c instanceof JComponent)
 					components.put(c, c);
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) { /* ignore */ }
 	}
 	
 	private void updateUIEditors() {
@@ -550,7 +550,7 @@ public class TreeTable extends JComponent implements Scrollable {
 	 * TreeTableMouseListeners are notified before MouseListeners.
 	 * 
 	 * @see #addTreeTableMouseMotionListener(TreeTableMouseMotionListener)
-	 * @see #addMouseListener(MouseListener)
+	 * @see #addMouseListener(java.awt.event.MouseListener)
 	 */
 	public void addTreeTableMouseListener(TreeTableMouseListener l) {
 		addListener(TreeTableMouseListener.class, l);
@@ -566,8 +566,8 @@ public class TreeTable extends JComponent implements Scrollable {
 	 * TreeTableMouseEvent will also consume the source MouseEvent.
 	 * TreeTableMouseMotionListeners are notified before MouseMotionListeners.
 	 * 
-	 * @see #addTreeTableMouseListener(TreeTableMouseMotionListener)
-	 * @see #addMouseMotionListener(MouseListener)
+	 * @see #addTreeTableMouseListener(TreeTableMouseListener)
+	 * @see #addMouseMotionListener(java.awt.event.MouseMotionListener)
 	 */
 	public void addTreeTableMouseMotionListener(TreeTableMouseMotionListener l) {
 		addListener(TreeTableMouseMotionListener.class, l);
@@ -686,9 +686,6 @@ public class TreeTable extends JComponent implements Scrollable {
 	 * Sync table row heights to corresponding tree row height
 	 * for rows <code>fromRow</code> (inclusive) to
 	 * <code>toRow</code> exclusive.
-	 * 
-	 * @param fromRow 
-	 * @param toRow 
 	 */
 	protected void updateTableRowHeights(int fromRow, int toRow) {
 		assert (tree.getRowHeight() <= 0);
@@ -865,8 +862,6 @@ public class TreeTable extends JComponent implements Scrollable {
 	
 	/**
 	 * If false, the focus is draw around the entire focused row.
-	 * 
-	 * @param columnFocusEnabled
 	 */
 	public void setColumnFocusEnabled(boolean columnFocusEnabled) {
 		boolean oldValue = isColumnFocusEnabled();
@@ -1238,14 +1233,7 @@ public class TreeTable extends JComponent implements Scrollable {
 	public void setTableHeader(JTableHeader tableHeader) {
 		table.setTableHeader(tableHeader);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public Enumeration<TreePath> getExpandedDescendants(TreePath parent) {
 		return tree.getExpandedDescendants(parent);
 	}
@@ -2165,19 +2153,19 @@ public class TreeTable extends JComponent implements Scrollable {
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			String name = evt.getPropertyName();
-			if (name == JTree.LEAD_SELECTION_PATH_PROPERTY ||
-					name == JTree.ANCHOR_SELECTION_PATH_PROPERTY) {
+			if (name.equals(JTree.LEAD_SELECTION_PATH_PROPERTY) ||
+					name.equals(JTree.ANCHOR_SELECTION_PATH_PROPERTY)) {
 				int col = !isColumnFocusEnabled() ? -1 :
 					getColumnModel().getSelectionModel().getLeadSelectionIndex();
 				repaint((TreePath)evt.getOldValue(), col);
  				repaint((TreePath)evt.getNewValue(), col);
-			} else if (name == "rowHeight") {
+			} else if (name.equals("rowHeight")) {
 				if (evt.getSource() != tree)
 					return; // only fire once
-			} else if (name == "componentOrientation"
-					|| name == "enabled"
-					|| name == "rowSorter"
-					|| name == "model") {
+			} else if (name.equals("componentOrientation")
+					|| name.equals("enabled")
+					|| name.equals("rowSorter")
+					|| name.equals("model")) {
 				return; // don't fire
 			}
 			firePropertyChange(name, evt.getOldValue(), evt.getNewValue());
