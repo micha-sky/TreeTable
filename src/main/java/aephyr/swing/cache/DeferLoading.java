@@ -137,8 +137,8 @@ public class DeferLoading implements AdjustmentListener,
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName() == "horizontalScrollBar" ||
-				evt.getPropertyName() == "verticalScrollBar") {
+		if (evt.getPropertyName().equals("horizontalScrollBar") ||
+				evt.getPropertyName().equals("verticalScrollBar")) {
 			JScrollBar oldValue = (JScrollBar)evt.getOldValue();
 			if (oldValue != null)
 				oldValue.removeAdjustmentListener(this);

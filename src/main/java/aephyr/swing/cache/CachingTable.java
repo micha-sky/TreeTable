@@ -121,8 +121,8 @@ public class CachingTable extends JTable implements Cachable {
 	 * direction are cached.
 	 * <p>
 	 * etc.
-	 * @param cacheThreshold
-	 * @throws IllegalArguemntException if <code>cacheThreshold</code> is less than zero or Float.NaN
+     *
+	 * @throws IllegalArgumentException if <code>cacheThreshold</code> is less than zero or Float.NaN
 	 */
 	public void setCacheThreshold(float cacheThreshold) {
 		if (cacheThreshold < 0.0f || Float.isNaN(cacheThreshold))
@@ -172,7 +172,7 @@ public class CachingTable extends JTable implements Cachable {
 	
 	/**
 	 * @return interval in milliseconds to wait for deferred loading
-	 * @see #setLoadingDelay(float)
+	 * @see #setLoadingDelay(int)
 	 */
 	public int getLoadingDelay() {
 		return loadingDelay;
@@ -192,7 +192,6 @@ public class CachingTable extends JTable implements Cachable {
 	/**
 	 * @throws UnsupportedOperationException
 	 * 		if <code>model</code> is not an instance of <code>CachingTable.Model</code>
-	 * @see {@link #setLoadingModel(Model)}
 	 */
 	@Override
 	public void setModel(TableModel model) {

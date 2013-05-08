@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,15 +16,11 @@ import java.util.Random;
 import java.util.Set;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.tree.*;
 
 import aephyr.swing.TreeTable;
-import aephyr.swing.event.TreeTableSorterEvent;
-import aephyr.swing.event.TreeTableSorterListener;
-// import aephyr.swing.mnemonic.*;
 import aephyr.swing.treetable.*;
 
 public class TreeTableTest implements Runnable, ItemListener {
@@ -46,7 +40,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 	public static void main(String[] args) throws Exception {
 		if (printMethods(false))
 			return;
-		Utilities.setNimbusLookAndFeel();
+		// Utilities.setNimbusLookAndFeel();
 //		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		SwingUtilities.invokeLater(new TreeTableTest());
 	}
@@ -137,7 +131,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 		frame.add(scroller, BorderLayout.CENTER);
 		frame.add(new JScrollPane(table), BorderLayout.SOUTH);
 		frame.add(treeScroller, BorderLayout.EAST);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		// new MnemonicGenerator().addMnemonics(frame.getRootPane());
@@ -715,15 +709,15 @@ public class TreeTableTest implements Runnable, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		String txt = ((JMenuItem)e.getSource()).getText();
 		boolean sel = e.getStateChange() == ItemEvent.SELECTED;
-		if (txt == LEFT_TO_RIGHT) {
+		if (txt.equals(LEFT_TO_RIGHT)) {
 			treeTable.setComponentOrientation(sel ?
 					ComponentOrientation.LEFT_TO_RIGHT :
 					ComponentOrientation.RIGHT_TO_LEFT);
-		} else if (txt == RENDERER_VARIABLE_HEIGHT) {
+		} else if (txt.equals(RENDERER_VARIABLE_HEIGHT)) {
 			setRenderer(treeTable.getColumnModel().getColumnCount() - 2, sel ?
 					new VariableRowHeightRenderer() : null);
 			treeTable.setRowHeight(-treeTable.getRowHeight());
-		} else if (txt == RENDERER_TREE) {
+		} else if (txt.equals(RENDERER_TREE)) {
 			setRenderer(0, sel ? new TreeRenderer() : null);
 		}
 	}

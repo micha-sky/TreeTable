@@ -86,8 +86,8 @@ public class CachingList extends JList implements Cachable {
 	 * direction are cached.
 	 * <p>
 	 * etc.
-	 * @param cacheThreshold
-	 * @throws IllegalArguemntException if <code>cacheThreshold</code> is less than zero or Float.NaN
+     *
+	 * @throws IllegalArgumentException if <code>cacheThreshold</code> is less than zero or Float.NaN
 	 */
 	public void setCacheThreshold(float cacheThreshold) {
 		if (cacheThreshold < 0.0f || Float.isNaN(cacheThreshold))
@@ -131,7 +131,7 @@ public class CachingList extends JList implements Cachable {
 	
 	/**
 	 * @return interval in milliseconds to wait for deferred loading
-	 * @see #setLoadingDelay(float)
+	 * @see #setLoadingDelay(int)
 	 */
 	public int getLoadingDelay() {
 		return loadingDelay;
@@ -139,8 +139,6 @@ public class CachingList extends JList implements Cachable {
 
 	/**
 	 * Sets the model for this CachingList.
-	 * 
-	 * @param model
 	 */
 	public void setLoadingModel(Model model) {
 		Model oldModel = getLoadingModel();
@@ -274,7 +272,7 @@ public class CachingList extends JList implements Cachable {
 	}
 	
 	/**
-	 * Overridden to use string values supplied by {@link #Model.getSearchStringAt(int)}.
+	 * Overridden to use string values supplied by {@link Model#getSearchStringAt(int)}.
 	 */
 	@Override
 	public int getNextMatch(String prefix, int startIndex, Position.Bias bias) {

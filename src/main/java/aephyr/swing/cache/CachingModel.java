@@ -319,7 +319,7 @@ public abstract class CachingModel implements Runnable {
 							wait(30000);
 							if (loaders != null && !loaders.isEmpty())
 								continue;
-						} catch (InterruptedException e) {}
+						} catch (InterruptedException e) { /* ignore */ }
 					}
 					thread = null;
 					return;
