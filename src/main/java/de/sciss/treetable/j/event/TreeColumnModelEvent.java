@@ -19,7 +19,7 @@ import java.util.EventObject;
 import javax.swing.event.TableModelEvent;
 import javax.swing.tree.TreePath;
 
-import de.sciss.treetable.j.treetable.TreeColumnModel;
+import de.sciss.treetable.j.TreeColumnModel;
 
 public class TreeColumnModelEvent extends EventObject {
 

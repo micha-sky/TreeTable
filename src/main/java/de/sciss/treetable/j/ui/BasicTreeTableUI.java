@@ -99,13 +99,13 @@ import com.sun.java.swing.Painter;
 
 import de.sciss.treetable.j.TreeTable;
 import de.sciss.treetable.j.TreeTable.DropLocation;
-import de.sciss.treetable.j.treetable.CellEditorContainer;
-import de.sciss.treetable.j.treetable.DefaultTreeTableCellEditor;
-import de.sciss.treetable.j.treetable.DefaultTreeTableCellRenderer;
-import de.sciss.treetable.j.treetable.TreeColumnModel;
-import de.sciss.treetable.j.treetable.TreeTableCellEditor;
-import de.sciss.treetable.j.treetable.TreeTableCellRenderer;
-import de.sciss.treetable.j.treetable.TreeTableSorter;
+import de.sciss.treetable.j.CellEditorContainer;
+import de.sciss.treetable.j.DefaultTreeTableCellEditor;
+import de.sciss.treetable.j.DefaultTreeTableCellRenderer;
+import de.sciss.treetable.j.TreeColumnModel;
+import de.sciss.treetable.j.TreeTableCellEditor;
+import de.sciss.treetable.j.TreeTableCellRenderer;
+import de.sciss.treetable.j.TreeTableSorter;
 
 public class BasicTreeTableUI extends TreeTableUI {
 	

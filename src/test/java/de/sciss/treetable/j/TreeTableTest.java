@@ -20,8 +20,6 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 import javax.swing.tree.*;
 
-import de.sciss.treetable.j.treetable.*;
-
 public class TreeTableTest implements Runnable, ItemListener {
 	
 	private static final boolean PROPERTY_TABLE = false;

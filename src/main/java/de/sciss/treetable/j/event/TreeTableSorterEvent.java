@@ -16,7 +16,7 @@ package de.sciss.treetable.j.event;
 
 import java.util.EventObject;
 import javax.swing.tree.TreePath;
-import de.sciss.treetable.j.treetable.TreeTableSorter;
+import de.sciss.treetable.j.TreeTableSorter;
 
 public class TreeTableSorterEvent extends EventObject {
 	

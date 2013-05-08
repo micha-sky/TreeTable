@@ -12,36 +12,21 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.Component;
 
-public class DefaultTreeTableNode extends DefaultMutableTreeNode implements MutableTreeTableNode {
-	
-	public DefaultTreeTableNode() {
-		this("");
-	}
-	
-	public DefaultTreeTableNode(Object ... rowData) {
-		if (rowData == null)
-			throw new NullPointerException();
-		this.rowData = rowData;
-	}
-	
-	private Object[] rowData;
+import javax.swing.CellEditor;
 
-	@Override
-	public Object getValueAt(int column) {
-		return rowData[column];
-	}
-	
-	@Override
-	public void setValueAt(Object value, int column) {
-		rowData[column] = value;
-	}
-	
-	@Override
-	public int getColumnCount() {
-		return rowData.length;
-	}
+import de.sciss.treetable.j.TreeTable;
+
+public interface TreeTableCellEditor extends CellEditor {
+
+	Component getTreeTableCellEditorComponent(TreeTable treeTable,
+			Object value, boolean isSelected, int row, int column);
+
+	Component getTreeTableCellEditorComponent(TreeTable treeTable,
+			Object value, boolean isSelected, int row, int column,
+			boolean expanded, boolean leaf);
+
 }

@@ -12,7 +12,7 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import de.sciss.treetable.j.event.TreeTableSorterListener;
+import de.sciss.treetable.j.TreeColumnModel;
 
 public interface TreeTableSorter<T extends TreeModel, C extends TreeColumnModel> {
 	

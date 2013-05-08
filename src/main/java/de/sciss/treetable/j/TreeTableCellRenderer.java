@@ -12,14 +12,20 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
-import javax.swing.Icon;
+import java.awt.Component;
 
 import de.sciss.treetable.j.TreeTable;
 
-public interface IconMap {
+public interface TreeTableCellRenderer {
 
-	Icon getIcon(TreeTable treeTable, Object node, boolean expanded, boolean leaf);
+	Component getTreeTableCellRendererComponent(TreeTable treeTable,
+			Object value, boolean selected, boolean hasFocus,
+			int row, int column);
+	
+	Component getTreeTableCellRendererComponent(TreeTable treeTable,
+			Object value, boolean selected, boolean hasFocus,
+			int row, int column, boolean expanded, boolean leaf);
 	
 }

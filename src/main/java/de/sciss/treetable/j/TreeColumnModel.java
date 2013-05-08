@@ -12,12 +12,28 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
-import javax.swing.tree.MutableTreeNode;
+import de.sciss.treetable.j.event.TreeColumnModelListener;
 
-public interface MutableTreeTableNode extends TreeTableNode, MutableTreeNode {
+public interface TreeColumnModel {
 
-	void setValueAt(Object value, int column);
+	String getColumnName(int column);
 	
+	Class<?> getColumnClass(int column);
+	
+	int getColumnCount();
+	
+	Object getValueAt(Object node, int column);
+	
+	void setValueAt(Object value, Object node, int column);
+	
+	boolean isCellEditable(Object node, int column);
+	
+	int getHierarchicalColumn();
+	
+	void addTreeColumnModelListener(TreeColumnModelListener l);
+	
+	void removeTreeColumnModelListener(TreeColumnModelListener l);
+
 }

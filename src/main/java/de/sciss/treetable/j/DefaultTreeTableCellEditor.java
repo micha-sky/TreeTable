@@ -12,7 +12,7 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
 import java.awt.Component;
 
@@ -22,8 +22,6 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
-
-import de.sciss.treetable.j.TreeTable;
 
 
 public class DefaultTreeTableCellEditor extends DefaultCellEditor

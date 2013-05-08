@@ -12,14 +12,36 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.DefaultMutableTreeNode;
 
-public interface TreeTableNode extends TreeNode {
+public class DefaultTreeTableNode extends DefaultMutableTreeNode implements MutableTreeTableNode {
 	
-	Object getValueAt(int column);
+	public DefaultTreeTableNode() {
+		this("");
+	}
 	
-	int getColumnCount();
+	public DefaultTreeTableNode(Object ... rowData) {
+		if (rowData == null)
+			throw new NullPointerException();
+		this.rowData = rowData;
+	}
+	
+	private Object[] rowData;
 
+	@Override
+	public Object getValueAt(int column) {
+		return rowData[column];
+	}
+	
+	@Override
+	public void setValueAt(Object value, int column) {
+		rowData[column] = value;
+	}
+	
+	@Override
+	public int getColumnCount() {
+		return rowData.length;
+	}
 }

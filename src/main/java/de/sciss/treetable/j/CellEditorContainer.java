@@ -12,7 +12,7 @@
  *    You should have received a copy of the GNU Lesser General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.sciss.treetable.j.treetable;
+package de.sciss.treetable.j;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -25,8 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
-
-import de.sciss.treetable.j.TreeTable;
 
 /**
  * A container that positions an editor component to a 

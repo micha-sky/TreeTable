@@ -20,10 +20,10 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.tree.TreePath;
 
 import de.sciss.treetable.j.TreeTable;
-import de.sciss.treetable.j.treetable.DefaultTreeTableCellEditor;
-import de.sciss.treetable.j.treetable.DefaultTreeTableCellRenderer;
-import de.sciss.treetable.j.treetable.TreeTableCellEditor;
-import de.sciss.treetable.j.treetable.TreeTableCellRenderer;
+import de.sciss.treetable.j.DefaultTreeTableCellEditor;
+import de.sciss.treetable.j.DefaultTreeTableCellRenderer;
+import de.sciss.treetable.j.TreeTableCellEditor;
+import de.sciss.treetable.j.TreeTableCellRenderer;
 
 public abstract class TreeTableUI extends ComponentUI {
 	
