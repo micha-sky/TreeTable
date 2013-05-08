@@ -21,7 +21,6 @@ import java.util.Enumeration;
 import javax.swing.Scrollable;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeWillExpandListener;
-import javax.swing.text.Position;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;

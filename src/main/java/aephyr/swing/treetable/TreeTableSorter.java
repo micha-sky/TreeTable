@@ -36,8 +36,6 @@ public interface TreeTableSorter<T extends TreeModel, C extends TreeColumnModel>
 	 * Retrieves the RowSorter for the specified path,
 	 * creates it if necessary.
 	 * 
-	 * @param path
-	 * @return
 	 * @see #getRowSorter(Object)
 	 */
 	public RowSorter<T> getRowSorter(TreePath path);
@@ -47,8 +45,6 @@ public interface TreeTableSorter<T extends TreeModel, C extends TreeColumnModel>
 	 * (lacks the necessary information) create
 	 * the row sorter if it doesn't exist.
 	 * 
-	 * @param node
-	 * @return
 	 * @see #getRowSorter(TreePath)
 	 */
 	public RowSorter<T> getRowSorter(Object node);

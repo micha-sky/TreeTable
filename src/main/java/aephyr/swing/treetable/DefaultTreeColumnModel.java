@@ -20,10 +20,6 @@ import java.util.List;
 
 import javax.swing.tree.TreeNode;
 
-import aephyr.swing.treetable.AbstractTreeColumnModel;
-import aephyr.swing.treetable.MutableTreeTableNode;
-import aephyr.swing.treetable.TreeTableNode;
-
 public class DefaultTreeColumnModel extends AbstractTreeColumnModel {
 	
 	public DefaultTreeColumnModel(int columns) {

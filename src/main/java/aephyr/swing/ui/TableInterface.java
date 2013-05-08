@@ -25,9 +25,6 @@ import javax.swing.DropMode;
 import javax.swing.Scrollable;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableColumnModel;
-
-import aephyr.swing.treetable.TreeTableCellEditor;
 
 public interface TableInterface extends Scrollable {
 	

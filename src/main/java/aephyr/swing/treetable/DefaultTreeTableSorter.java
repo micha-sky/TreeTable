@@ -403,10 +403,8 @@ public class DefaultTreeTableSorter<T extends TreeModel, C extends TreeColumnMod
 	        Class<?> columnClass = getColumnModel().getColumnClass(column);
 	        if (columnClass == String.class)
 	            return false;
-	        if (Comparable.class.isAssignableFrom(columnClass))
-	            return false;
-	        return true;
-		}
+            return !Comparable.class.isAssignableFrom(columnClass);
+        }
 
 		@Override
 		public List<? extends SortKey> getSortKeys() {

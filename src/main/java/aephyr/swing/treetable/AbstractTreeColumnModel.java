@@ -21,7 +21,6 @@ import javax.swing.event.EventListenerList;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import aephyr.swing.treetable.TreeColumnModel;
 import aephyr.swing.event.TreeColumnModelEvent;
 import aephyr.swing.event.TreeColumnModelListener;
 

@@ -85,10 +85,10 @@ public class DefaultTreeTableCellRenderer extends JLabel
 
 	@Override
 	protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-		if (propertyName=="text"
-			|| propertyName == "labelFor"
-			|| propertyName == "displayedMnemonic"
-			|| ((propertyName == "font" || propertyName == "foreground")
+		if (propertyName.equals("text")
+			|| propertyName.equals("labelFor")
+			|| propertyName.equals("displayedMnemonic")
+			|| ((propertyName.equals("font") || propertyName.equals("foreground"))
 					&& oldValue != newValue
 					&& getClientProperty(javax.swing.plaf.basic.BasicHTML.propertyKey) != null)) {
 			super.firePropertyChange(propertyName, oldValue, newValue);

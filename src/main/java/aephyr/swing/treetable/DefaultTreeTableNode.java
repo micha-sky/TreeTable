@@ -16,8 +16,6 @@ package aephyr.swing.treetable;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import aephyr.swing.treetable.MutableTreeTableNode;
-
 public class DefaultTreeTableNode extends DefaultMutableTreeNode implements MutableTreeTableNode {
 	
 	public DefaultTreeTableNode() {

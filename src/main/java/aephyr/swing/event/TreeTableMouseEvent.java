@@ -18,7 +18,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import aephyr.swing.TreeTable;

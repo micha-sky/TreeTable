@@ -2683,13 +2683,13 @@ public class BasicTreeTableUI extends TreeTableUI {
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			String name = evt.getPropertyName();
-			if (name == "rowSorter") {
+			if (name.equals("rowSorter")) {
 				table.setRowSorter(evt.getNewValue() == null ? null : new RowSorterAdapter());
-			} else if (name == "enabled") {
+			} else if (name.equals("enabled")) {
 				boolean enabled = (Boolean)evt.getNewValue();
 				table.setEnabled(enabled);
 				tree.setEnabled(enabled);
-			} else if (name == "componentOrientation") {
+			} else if (name.equals("componentOrientation")) {
 				ComponentOrientation o = (ComponentOrientation)evt.getNewValue();
 				table.setComponentOrientation(o);
 				tree.setComponentOrientation(o);
@@ -2804,15 +2804,6 @@ public class BasicTreeTableUI extends TreeTableUI {
 
 	}
 
-
-
-
-	
-	
-	
-	
-	
-	
 	// adapted from BasicTableUI.paintDropLines...
 	private void paintDropLines(Graphics g) {
 		TreeTable.DropLocation loc = treeTable.getDropLocation();
@@ -2836,22 +2827,22 @@ public class BasicTreeTableUI extends TreeTableUI {
 				g.setColor(color);
 				g.fillRect(rect.x, rect.y, rect.width, rect.height);
 			}
-			if (!loc.isInsertColumn() && shortColor != null) {
-				g.setColor(shortColor);
-				if (loc.getColumn() == treeTable.getHierarchicalColumn()) {
-					TreePath path = loc.getPath();
-					Object child = tree.getModel().getChild(
-							path.getLastPathComponent(), 0);
-					Rectangle node = tree.getPathBounds(
-							path.pathByAddingChild(child));
-					if (node != null) {
-						x += node.x;
-						w -= node.x;
-					}
-				}
-				g.fillRect(x, rect.y, w, rect.height);
-			}
-		}
+//			if (!loc.isInsertColumn() && shortColor != null) {
+//				g.setColor(shortColor);
+//				if (loc.getColumn() == treeTable.getHierarchicalColumn()) {
+//					TreePath path = loc.getPath();
+//					Object child = tree.getModel().getChild(
+//							path.getLastPathComponent(), 0);
+//					Rectangle node = tree.getPathBounds(
+//							path.pathByAddingChild(child));
+//					if (node != null) {
+//						x += node.x;
+//						w -= node.x;
+//					}
+//				}
+//				g.fillRect(x, rect.y, w, rect.height);
+//			}
+        }
 
 		rect = getVDropLineRect(loc);
 		if (rect != null) {
@@ -2862,10 +2853,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 				g.setColor(color);
 				g.fillRect(rect.x, rect.y, rect.width, rect.height);
 			}
-			if (!loc.isInsertRow() && shortColor != null) {
-				g.setColor(shortColor);
-				g.fillRect(rect.x, y, rect.width, h);
-			}
+//			if (!loc.isInsertRow() && shortColor != null) {
+//				g.setColor(shortColor);
+//				g.fillRect(rect.x, y, rect.width, h);
+//			}
 		}
 	}
 	
