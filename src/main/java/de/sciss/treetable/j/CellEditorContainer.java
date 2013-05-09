@@ -75,7 +75,7 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 		return getEditorComponent(treeTable, value, selected, row, column, true, expanded, leaf);
 	}
 	
-	private Component getEditorComponent(TreeTable treeTable, Object val,
+	private Component getEditorComponent(TreeTable treeTable, Object value,
 			boolean sel, int row, int col, boolean treeColumn, boolean exp, boolean leaf) {
 		if (editingComponent != null)
 			remove(editingComponent);
@@ -83,7 +83,7 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 		renderer = treeTable.getCellRenderer(row, col);
 		
 		Component rc = rendererComponent = renderer.getTreeTableCellRendererComponent(
-				treeTable, val, sel, true, row, col, exp, leaf);
+				treeTable, value, sel, true, row, col, exp, leaf);
 		rendererSize = rc == null ? null : rc.getPreferredSize();
 		
 		if (treeColumn) {
@@ -101,8 +101,8 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 		}
 		
 		editingComponent = treeColumn ?
-				getCellEditorComponent(treeTable, val, sel, row, col, exp, leaf) :
-				getCellEditorComponent(treeTable, val, sel, row, col);
+				getCellEditorComponent(treeTable, value, sel, row, col, exp, leaf) :
+				getCellEditorComponent(treeTable, value, sel, row, col);
 		if (editingComponent != null)
 			add(editingComponent);
 		return this;

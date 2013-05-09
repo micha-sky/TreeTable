@@ -1011,7 +1011,10 @@ public class TreeTable extends JComponent implements Scrollable {
 	public Object getValueAt(int row, int column) {
 		return adapter.getValueAt(row, convertColumnIndexToModel(column));
 	}
-	
+
+    public Object getNode(int row) {
+        return adapter.getNode(row);
+    }
 
 	public Icon getLeafIcon() {
 		if (leafIcon == null)
@@ -1772,7 +1775,7 @@ public class TreeTable extends JComponent implements Scrollable {
 			return tree.getRowCount();
 		}
 
-		private Object getNode(int row) {
+		public Object getNode(int row) {
 			return getPathForRow(row).getLastPathComponent();
 		}
 

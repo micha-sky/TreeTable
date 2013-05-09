@@ -647,15 +647,15 @@ public class BasicTreeTableUI extends TreeTableUI {
 	
 	private Component getRendererComponent(boolean sel, boolean foc, int row, int col) {
 		TreeTableCellRenderer r = treeTable.getCellRenderer(row, col);
-		Object val = treeTable.getValueAt(row, col);
+		Object value = treeTable.getValueAt(row, col);
 		if (col == treeTable.getHierarchicalColumn()) {
 			TreePath path = tree.getPathForRow(row);
 			return r.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col,
+					treeTable, value, sel, foc, row, col,
 					treeTable.isExpanded(path), treeTable.isLeaf(path));
 		}
 		return r.getTreeTableCellRendererComponent(
-				treeTable, val, sel, foc, row, col);
+				treeTable, value, sel, foc, row, col);
 	}
 	
 	protected void paintFocus(Graphics g) {
@@ -831,8 +831,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 	@Override
 	public Rectangle getPathBounds(TreeTable treeTable, TreePath path) {
 		Rectangle r = tree.getPathBounds(path);
-		r.x += tree.getX();
-		r.y += tree.getY();
+        if (r != null) {
+            r.x += tree.getX();
+            r.y += tree.getY();
+        }
 		return r;
 	}
 	
@@ -862,6 +864,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 	@Override
 	public int getDistanceToTreeHandle(TreeTable treeTable, TreePath path, int x) {
 		Rectangle nb = tree.getPathBounds(path);
+        if (nb == null) return 0;
 		boolean ltr = treeTable.getComponentOrientation().isLeftToRight();
 		int treePosition;
 		if (ltr ? x < nb.x : x > nb.x + nb.width) {
@@ -1628,9 +1631,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object val, boolean sel, boolean foc, int row, int col) {
+				Object value, boolean sel, boolean foc, int row, int col) {
 			Component c = super.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col);
+					treeTable, value, sel, foc, row, col);
 			focus = foc;
 			this.row = row;
 			this.column = col;
@@ -1841,31 +1844,31 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// initial entry point while painting table
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
-				Object val, boolean sel, boolean foc, int row, int col) {
+				Object value, boolean sel, boolean foc, int row, int col) {
 			tableColumn = true;
 			this.row = row;
 			column = col;
 			foc = isFocused(row, col);
-			component = getTableComponent(val, sel, foc, row, col);
+			component = getTableComponent(value, sel, foc, row, col);
 			return this;
 		}
 
-		private Component getTableComponent(Object val,
+		private Component getTableComponent(Object value,
 				boolean sel, boolean foc, int row, int col) {
 			return treeTable.getCellRenderer(row, col).getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col);
+					treeTable, value, sel, foc, row, col);
 		}
 
 		// initial entry point while painting tree
 		@Override
-		public Component getTreeCellRendererComponent(JTree tree, Object val,
+		public Component getTreeCellRendererComponent(JTree tree, Object value,
 				boolean sel, boolean exp, boolean leaf, int row, boolean foc) {
 			if (tableColumn) {
 				tableColumn = false;
 				column = treeTable.getHierarchicalColumn();
 			}
 			
-			node = val;
+			node = value;
 			this.row = row;
 			
 			// implement JTable's selection idioms.
@@ -1874,15 +1877,15 @@ public class BasicTreeTableUI extends TreeTableUI {
 			foc = isFocused(row, column);
 
 			TreeColumnModel model = treeTable.getTreeColumnModel();
-			val = model.getValueAt(val, model.getHierarchicalColumn());
-			component = getTreeComponent(val, sel, foc, row, column, exp, leaf);
+			value = model.getValueAt(value, model.getHierarchicalColumn());
+			component = getTreeComponent(value, sel, foc, row, column, exp, leaf);
 			return this;
 		}
 
-		private Component getTreeComponent(Object val, boolean sel,
+		private Component getTreeComponent(Object value, boolean sel,
 				boolean foc, int row, int col, boolean exp, boolean leaf) {
 			return treeTable.getCellRenderer(row, col).getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col, exp, leaf);
+					treeTable, value, sel, foc, row, col, exp, leaf);
 		}
 
 		boolean isSelected(boolean sel) {
@@ -1899,9 +1902,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// entry point for default table column renderers
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object val, boolean sel, boolean foc, int row, int col) {
+				Object value, boolean sel, boolean foc, int row, int col) {
 			Component c = renderer.getTableCellRendererComponent(
-					table, val, sel, foc, row, col);
+					table, value, sel, foc, row, col);
 			if (c instanceof JComponent)
 				((JComponent)c).setOpaque(false);
 			configureCellRenderer(c, sel, row, col);
@@ -1911,9 +1914,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// entry point for default tree column renderer
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object val, boolean sel, boolean foc, int row, int col, boolean exp, boolean leaf) {
+				Object value, boolean sel, boolean foc, int row, int col, boolean exp, boolean leaf) {
 			return defaultTreeCellRenderer.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col, exp, leaf);
+					treeTable, value, sel, foc, row, col, exp, leaf);
 		}
 		
 		private Dimension getComponentPreferredSize() {
@@ -1970,8 +1973,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 			for (int col=cm.getColumnCount(); --col>=0;) {
 				if (col == tc)
 					continue;
-				Object val = rm.getValueAt(nod, cm.getColumn(col).getModelIndex());
-				Component c = getTableComponent(val, false, false, row, col);
+				Object value = rm.getValueAt(nod, cm.getColumn(col).getModelIndex());
+				Component c = getTableComponent(value, false, false, row, col);
 				size.height = Math.max(size.height, c.getPreferredSize().height + margin);
 			}
 			return size;
@@ -2169,7 +2172,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 		}
 		
 		public void configureCellRenderer(DefaultTreeTableCellRenderer renderer,
-				TreeTable treeTable, Object val, boolean sel,
+				TreeTable treeTable, Object value, boolean sel,
 				boolean foc, int row, int col, boolean exp, boolean leaf) {
 			
 			renderer.setOpaque(false);
@@ -2179,7 +2182,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 					treeTable.getForeground();
 			renderer.setForeground(fg);
 
-			Icon icon = treeTable.getIcon(val, exp, leaf);
+			Icon icon = treeTable.getIcon(value, exp, leaf);
 			if (!treeTable.isEnabled()) {
 				renderer.setEnabled(false);
 				renderer.setDisabledIcon(icon);
@@ -2247,10 +2250,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 			super(editor);
 		}
 		
-		public Component getCellEditorComponent(TreeTable treeTable, Object val,
+		public Component getCellEditorComponent(TreeTable treeTable, Object value,
 				boolean sel, int row, int col, boolean exp, boolean leaf) {
 			return editor.getTableCellEditorComponent(
-					table, val, sel, row, col);
+					table, value, sel, row, col);
 		}
 		
 	}
@@ -2313,17 +2316,17 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// entry point for default table column editors
 		@Override
 		public Component getTreeTableCellEditorComponent(TreeTable treeTable,
-				Object val, boolean sel, int row, int col) {
+				Object value, boolean sel, int row, int col) {
 			return ((TableCellEditor)defaultEditor).getTableCellEditorComponent(
-					table, val, sel, row, col);
+					table, value, sel, row, col);
 		}
 		
 		// entry point for default tree column editor
 		@Override
 		public Component getTreeTableCellEditorComponent(TreeTable treeTable,
-				Object val, boolean sel, int row, int col, boolean exp, boolean leaf) {
+				Object value, boolean sel, int row, int col, boolean exp, boolean leaf) {
 			return defaultTreeEditor.getTreeTableCellEditorComponent(
-					treeTable, val, sel, row, col, exp, leaf);
+					treeTable, value, sel, row, col, exp, leaf);
 		}
 
 		private CellEditor getEditor() {
