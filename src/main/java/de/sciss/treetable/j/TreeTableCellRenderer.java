@@ -14,18 +14,15 @@
  */
 package de.sciss.treetable.j;
 
+import javax.swing.*;
 import java.awt.Component;
 
-import de.sciss.treetable.j.TreeTable;
-
 public interface TreeTableCellRenderer {
-
 	Component getTreeTableCellRendererComponent(TreeTable treeTable,
-			Object value, boolean selected, boolean hasFocus,
+			Object node, Object value, boolean selected, boolean hasFocus,
 			int row, int column);
 	
 	Component getTreeTableCellRendererComponent(TreeTable treeTable,
-			Object value, boolean selected, boolean hasFocus,
+			Object Node, Object value, boolean selected, boolean hasFocus,
 			int row, int column, boolean expanded, boolean leaf);
-	
 }

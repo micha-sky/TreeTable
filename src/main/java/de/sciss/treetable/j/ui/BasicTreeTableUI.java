@@ -478,7 +478,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 					tree.isRowSelected(row) && table.isColumnSelected(col));
 			TreeTableCellRenderer r = treeTable.getCellRenderer(row, col);
 			Component c = r.getTreeTableCellRendererComponent(
-						treeTable, null, sel, false, row, col);
+						treeTable, null /* ??? */, null, sel, false, row, col);
 			// TODO, create CellRendererPane for TreeTable, for use by the focus renderer too.
 			CellRendererPane rp = (CellRendererPane)table.getComponent(0);
 			Rectangle cell = table.getCellRect(row, col, true);
@@ -647,15 +647,16 @@ public class BasicTreeTableUI extends TreeTableUI {
 	
 	private Component getRendererComponent(boolean sel, boolean foc, int row, int col) {
 		TreeTableCellRenderer r = treeTable.getCellRenderer(row, col);
-		Object val = treeTable.getValueAt(row, col);
+        Object node  = treeTable.getNode(row);
+		Object value = treeTable.getValueAt(node, col);
 		if (col == treeTable.getHierarchicalColumn()) {
 			TreePath path = tree.getPathForRow(row);
 			return r.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col,
+					treeTable, node, value, sel, foc, row, col,
 					treeTable.isExpanded(path), treeTable.isLeaf(path));
 		}
 		return r.getTreeTableCellRendererComponent(
-				treeTable, val, sel, foc, row, col);
+				treeTable, node, value, sel, foc, row, col);
 	}
 	
 	protected void paintFocus(Graphics g) {
@@ -691,7 +692,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 			if (!g.getClip().intersects(r))
 				return;
 			Component c = focusRenderer.getTreeTableCellRendererComponent(
-					treeTable, "", false, true, leadRow, leadColumn);
+					treeTable, null /* ??? */, "", false, true, leadRow, leadColumn);
 			c.setBounds(0, 0, r.width, r.height);
 			Graphics cg = g.create(r.x, r.y, r.width, r.height);
 			try {
@@ -717,7 +718,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 					r.add(table.getCellRect(row, columns-1, true));
 				if (g.getClip().intersects(r)) {
 					Component c = focusRenderer.getTreeTableCellRendererComponent(
-							treeTable, "", false, true, row, -1);
+							treeTable, null /* ??? */, "", false, true, row, -1);
 					c.setBounds(0, 0, r.width, r.height);
 					Graphics cg = g.create(r.x, r.y, r.width, r.height);
 					try {
@@ -1628,9 +1629,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object val, boolean sel, boolean foc, int row, int col) {
+				Object node, Object value, boolean sel, boolean foc, int row, int col) {
 			Component c = super.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col);
+					treeTable, node, value, sel, foc, row, col);
 			focus = foc;
 			this.row = row;
 			this.column = col;
@@ -1643,7 +1644,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 			// Nimbus fails to paint its focus for Boolean columns
 			if (focus && c instanceof JCheckBox) {
 				Component fc = getFocusRenderer().getTreeTableCellRendererComponent(
-						treeTable, "", false, true, row, column);
+						treeTable, null /* ??? */, "", false, true, row, column);
 				if (treeTable.isNodeSortingEnabled()) {
 					paintComponent(g, fc, treeTable.getAlignment(c, row, column));
 				} else {
@@ -1841,31 +1842,31 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// initial entry point while painting table
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
-				Object val, boolean sel, boolean foc, int row, int col) {
+				Object value, boolean sel, boolean foc, int row, int col) {
 			tableColumn = true;
 			this.row = row;
 			column = col;
 			foc = isFocused(row, col);
-			component = getTableComponent(val, sel, foc, row, col);
+			component = getTableComponent(value, sel, foc, row, col);
 			return this;
 		}
 
-		private Component getTableComponent(Object val,
+		private Component getTableComponent(Object node, Object value,
 				boolean sel, boolean foc, int row, int col) {
 			return treeTable.getCellRenderer(row, col).getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col);
+					treeTable, node, value, sel, foc, row, col);
 		}
 
 		// initial entry point while painting tree
 		@Override
-		public Component getTreeCellRendererComponent(JTree tree, Object val,
+		public Component getTreeCellRendererComponent(JTree tree, Object value,
 				boolean sel, boolean exp, boolean leaf, int row, boolean foc) {
 			if (tableColumn) {
 				tableColumn = false;
 				column = treeTable.getHierarchicalColumn();
 			}
 			
-			node = val;
+			node = value;
 			this.row = row;
 			
 			// implement JTable's selection idioms.
@@ -1874,8 +1875,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 			foc = isFocused(row, column);
 
 			TreeColumnModel model = treeTable.getTreeColumnModel();
-			val = model.getValueAt(val, model.getHierarchicalColumn());
-			component = getTreeComponent(val, sel, foc, row, column, exp, leaf);
+			value = model.getValueAt(value, model.getHierarchicalColumn());
+			component = getTreeComponent(value, sel, foc, row, column, exp, leaf);
 			return this;
 		}
 
@@ -1911,9 +1912,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// entry point for default tree column renderer
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object val, boolean sel, boolean foc, int row, int col, boolean exp, boolean leaf) {
+				Object node, Object value, boolean sel, boolean foc, int row, int col, boolean exp, boolean leaf) {
 			return defaultTreeCellRenderer.getTreeTableCellRendererComponent(
-					treeTable, val, sel, foc, row, col, exp, leaf);
+					treeTable, node, value, sel, foc, row, col, exp, leaf);
 		}
 		
 		private Dimension getComponentPreferredSize() {
@@ -1970,7 +1971,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 			for (int col=cm.getColumnCount(); --col>=0;) {
 				if (col == tc)
 					continue;
-				Object val = rm.getValueAt(nod, cm.getColumn(col).getModelIndex());
+				Object value = rm.getValueAt(nod, cm.getColumn(col).getModelIndex());
 				Component c = getTableComponent(val, false, false, row, col);
 				size.height = Math.max(size.height, c.getPreferredSize().height + margin);
 			}
@@ -2286,7 +2287,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 		// second entry point
 		@Override
 		public Component getTableCellEditorComponent(JTable table,
-				Object value, boolean selected, int row, int column) {
+				Object node, Object value, boolean selected, int row, int column) {
 			Component c;
 			boolean treeColumn = column == treeTable.getHierarchicalColumn();
 			if (treeColumn) {
@@ -2294,10 +2295,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 				boolean expanded = tree.isExpanded(path);
 				boolean leaf = treeTable.isLeaf(path);
 				c = treeTableEditor.getTreeTableCellEditorComponent(
-						treeTable, value, selected, row, column, expanded, leaf);	
+						treeTable, node, value, selected, row, column, expanded, leaf);
 			} else {
 				c = treeTableEditor.getTreeTableCellEditorComponent(
-						treeTable, value, selected, row, column);
+						treeTable, node, value, selected, row, column);
 			}
 			if (treeColumn) {
 				if (treeEditorContainer == null)
@@ -2388,18 +2389,18 @@ public class BasicTreeTableUI extends TreeTableUI {
 
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object value, boolean selected, boolean hasFocus, int row,
+				Object node, Object value, boolean selected, boolean hasFocus, int row,
 				int column) {
 			return super.getTableCellRendererComponent(
-					table, value, selected, hasFocus, row, column);
+					table, /* node, */ value, selected, hasFocus, row, column);
 		}
 
 		@Override
 		public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-				Object value, boolean selected, boolean hasFocus, int row,
+				Object node, Object value, boolean selected, boolean hasFocus, int row,
 				int column, boolean expanded, boolean leaf) {
 			return super.getTableCellRendererComponent(
-					table, value, selected, hasFocus, row, column);
+					table, /* node, */ value, selected, hasFocus, row, column);
 		}
 		
 		@Override

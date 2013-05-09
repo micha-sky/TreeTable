@@ -292,30 +292,33 @@ public class TreeTable extends JComponent implements Scrollable {
 	private void addComponents(IdentityHashMap components, TreeTableCellRenderer r, int col) {
 		try {
 			int row;
-			Object value;
+			Object node, value;
 			if (getRowCount() == 0) {
 				row = -1;
+                node  = null;
 				value = null;
 			} else {
 				row = 0;
-				value = adapter.getValueAt(0, col);
+                node  = adapter.getNode(0);
+				// value = adapter.getValueAt(0, col);
+                value = adapter.treeColumnModel.getValueAt(node, col);
 			}
 			if (col == adapter.treeColumnModel.getHierarchicalColumn()) {
 				Component c;
 				if (row < 0) {
 					c = r.getTreeTableCellRendererComponent(
-							this, value, false, false, row, col, false, true);
+							this, node, value, false, false, row, col, false, true);
 				} else {
 					TreePath path = getPathForRow(0);
 					c = r.getTreeTableCellRendererComponent(
-							this, value, false, false, row, col,
+							this, node, value, false, false, row, col,
 							isExpanded(path), isLeaf(path));
 				}
 				if (c instanceof JComponent)
 					components.put(c, c);
 			} else {
 				Component c = r.getTreeTableCellRendererComponent(
-						this, value, false, false, row, col);
+						this, node, value, false, false, row, col);
 				if (c instanceof JComponent)
 					components.put(c, c);
 			}
@@ -1007,11 +1010,18 @@ public class TreeTable extends JComponent implements Scrollable {
 	public int convertNodeIndexToModel(Object parent, int viewIndex) {
 		return adapter.convertIndexToModel(parent, viewIndex);
 	}
+
+    public Object getNode(int row) {
+        return adapter.getNode(row);
+    }
 	
+    public Object getValueAt(Object node, int column) {
+   		return adapter.getValueAt(node, convertColumnIndexToModel(column));
+   	}
+
 	public Object getValueAt(int row, int column) {
 		return adapter.getValueAt(row, convertColumnIndexToModel(column));
 	}
-	
 
 	public Icon getLeafIcon() {
 		if (leafIcon == null)
@@ -1772,9 +1782,13 @@ public class TreeTable extends JComponent implements Scrollable {
 			return tree.getRowCount();
 		}
 
-		private Object getNode(int row) {
+		public Object getNode(int row) {
 			return getPathForRow(row).getLastPathComponent();
 		}
+
+        public Object getValueAt(Object node, int column) {
+            return treeColumnModel.getValueAt(node, column);
+        }
 
 		@Override
 		public Object getValueAt(int row, int column) {
@@ -2565,8 +2579,11 @@ public class TreeTable extends JComponent implements Scrollable {
 						&& col == treeTable.getLeadSelectionColumn()
 						&& row == treeTable.getLeadSelectionRow()
 						&& treeTable.isFocusOwner();
+                Object node  = treeTable.adapter.getNode(row);
+                Object value = treeTable.adapter.treeColumnModel.getValueAt(node, convertColumnIndexToModel(col));
+                // Object value = treeTable.getValueAt(row, col)
 				Component c = r.getTreeTableCellRendererComponent(
-						treeTable, treeTable.getValueAt(row, col), sel, foc, row, col);
+						treeTable, node, value, sel, foc, row, col);
 				if (c instanceof JComponent) {
 					Rectangle cell = treeTable.getCellRect(row, col, false);
 					pt.translate(-cell.x, -cell.y);
@@ -2575,7 +2592,7 @@ public class TreeTable extends JComponent implements Scrollable {
 							pt.x, pt.y, event.getXOnScreen(), event.getYOnScreen(),
 							event.getClickCount(), event.isPopupTrigger(),
 							MouseEvent.NOBUTTON);
-					tip = ((JComponent)c).getToolTipText(e);
+					tip = ((JComponent) c).getToolTipText(e);
 				}
 			}
 			if (tip == null)

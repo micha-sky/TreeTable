@@ -64,18 +64,18 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 
 	@Override
 	public Component getTreeTableCellEditorComponent(TreeTable treeTable,
-			Object value, boolean selected, int row, int column) {
-		return getEditorComponent(treeTable, value, selected, row, column, false, false, false);
+			Object node, Object value, boolean selected, int row, int column) {
+		return getEditorComponent(treeTable, node, value, selected, row, column, false, false, false);
 	}
 
 	@Override
 	public Component getTreeTableCellEditorComponent(TreeTable treeTable,
-			Object value, boolean selected, int row, int column,
+			Object node, Object value, boolean selected, int row, int column,
 			boolean expanded, boolean leaf) {
-		return getEditorComponent(treeTable, value, selected, row, column, true, expanded, leaf);
+		return getEditorComponent(treeTable, node, value, selected, row, column, true, expanded, leaf);
 	}
 	
-	private Component getEditorComponent(TreeTable treeTable, Object val,
+	private Component getEditorComponent(TreeTable treeTable, Object node, Object value,
 			boolean sel, int row, int col, boolean treeColumn, boolean exp, boolean leaf) {
 		if (editingComponent != null)
 			remove(editingComponent);
@@ -83,7 +83,7 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 		renderer = treeTable.getCellRenderer(row, col);
 		
 		Component rc = rendererComponent = renderer.getTreeTableCellRendererComponent(
-				treeTable, val, sel, true, row, col, exp, leaf);
+				treeTable, node, value, sel, true, row, col, exp, leaf);
 		rendererSize = rc == null ? null : rc.getPreferredSize();
 		
 		if (treeColumn) {
@@ -101,26 +101,26 @@ public class CellEditorContainer<E extends CellEditor> extends Container
 		}
 		
 		editingComponent = treeColumn ?
-				getCellEditorComponent(treeTable, val, sel, row, col, exp, leaf) :
-				getCellEditorComponent(treeTable, val, sel, row, col);
+				getCellEditorComponent(treeTable, node, value, sel, row, col, exp, leaf) :
+				getCellEditorComponent(treeTable, node, value, sel, row, col);
 		if (editingComponent != null)
 			add(editingComponent);
 		return this;
 	}
 	
 	protected Component getCellEditorComponent(TreeTable treeTable,
-			Object value, boolean selected, int row, int column, boolean expanded, boolean leaf) {
+			Object node, Object value, boolean selected, int row, int column, boolean expanded, boolean leaf) {
 		if (editor instanceof TreeTableCellEditor)
 			return ((TreeTableCellEditor)editor).getTreeTableCellEditorComponent(
-				treeTable, value, selected, row, column, expanded, leaf);
+				treeTable, node, value, selected, row, column, expanded, leaf);
 		return null;
 	}
 	
 	protected Component getCellEditorComponent(TreeTable treeTable,
-			Object value, boolean selected, int row, int column) {
+			Object node, Object value, boolean selected, int row, int column) {
 		if (editor instanceof TreeTableCellEditor)
 			return ((TreeTableCellEditor)editor).getTreeTableCellEditorComponent(
-				treeTable, value, selected, row, column);
+				treeTable, node, value, selected, row, column);
 		return null;
 	}
 

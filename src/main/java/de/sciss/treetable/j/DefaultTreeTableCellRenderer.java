@@ -17,8 +17,7 @@ package de.sciss.treetable.j;
 import java.awt.Component;
 import java.awt.Rectangle;
 
-import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
 public class DefaultTreeTableCellRenderer extends JLabel
@@ -29,7 +28,7 @@ public class DefaultTreeTableCellRenderer extends JLabel
 	
 	@Override
 	public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-			Object value, boolean selected, boolean hasFocus, int row, int column) {
+			Object node, Object value, boolean selected, boolean hasFocus, int row, int column) {
 		treeTable.getUI().configureCellRenderer(this, treeTable,
 				value, selected, hasFocus, row, column);
 		setValue(value);
@@ -38,7 +37,7 @@ public class DefaultTreeTableCellRenderer extends JLabel
 
 	@Override
 	public Component getTreeTableCellRendererComponent(TreeTable treeTable,
-			Object value, boolean selected, boolean hasFocus, int row,
+			Object node, Object value, boolean selected, boolean hasFocus, int row,
 			int column, boolean expanded, boolean leaf) {
 		treeTable.getUI().configureCellRenderer(this, treeTable,
 				value, selected, hasFocus, row, column, expanded, leaf);
