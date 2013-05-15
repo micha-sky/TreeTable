@@ -1,6 +1,7 @@
 package de.sciss.treetable.j;
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
@@ -171,8 +172,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 	}
 	
 	private static class DummyTransferHandler extends TransferHandler {
-		
-		@Override
+        @Override
 		public boolean canImport(TransferSupport support) {
 //			if (support.isDrop()) {
 //				return support.getDropLocation().getDropPoint().x < 200;
