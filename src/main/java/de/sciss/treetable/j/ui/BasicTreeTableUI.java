@@ -2810,7 +2810,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 	// adapted from BasicTableUI.paintDropLines...
 	private void paintDropLines(Graphics g) {
 		TreeTable.DropLocation loc = treeTable.getDropLocation();
-		if (loc == null || !loc.isInsertRow() || !loc.isInsertColumn())
+		if (loc == null || !(loc.isInsertRow() || loc.isInsertColumn()))
 			return;
 
 		Color color = UIManager.getColor("Table.dropLineColor");

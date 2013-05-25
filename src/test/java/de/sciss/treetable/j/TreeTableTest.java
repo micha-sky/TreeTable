@@ -150,8 +150,8 @@ public class TreeTableTest implements Runnable, ItemListener {
 		DefaultTreeTableNode root = createNode(4, COLUMN_COUNT);
 		
 		TreeTable treeTable = new TreeTable(root);
-		treeTable.setRootVisible(false);
-		treeTable.setShowsRootHandles(true);
+		treeTable.setRootVisible     (false);
+		treeTable.setShowsRootHandles(true );
 		// column 0 can't be a String because sometimes the value is wrapped
 		// into a Header object so the Renderer knows to make it bold
 		root.setValueAt(Object.class, 0);
@@ -171,9 +171,12 @@ public class TreeTableTest implements Runnable, ItemListener {
 		return treeTable;
 	}
 	
-	private static class DummyTransferHandler extends TransferHandler {
+	private /* static */ class DummyTransferHandler extends TransferHandler {
         @Override
 		public boolean canImport(TransferSupport support) {
+            // TreeTable.DropLocation dl = treeTable.getDropLocation();
+            // System.out.println("canImport (path = " + (dl == null ? "null" : dl.getPath()) + ")");
+            // treeTable.repaint();
 //			if (support.isDrop()) {
 //				return support.getDropLocation().getDropPoint().x < 200;
 //			}
@@ -366,12 +369,11 @@ public class TreeTableTest implements Runnable, ItemListener {
 				}
 			}
 		}
-		
 	}
 	
 	private TreeTable createPropTreeTable() {
-		DefaultTreeModel tm = new DefaultTreeModel(null);
-		PropertyModel tcm = new PropertyModel(null);
+		DefaultTreeModel tm  = new DefaultTreeModel(null);
+		PropertyModel    tcm = new PropertyModel   (null);
 		
 		TreeTable treeTable = new TreeTable(tm, tcm);
 		treeTable.setAutoCreateColumnsFromModel(false);
@@ -383,12 +385,12 @@ public class TreeTableTest implements Runnable, ItemListener {
 		
 		Node root = new Node(new Header("TreeTable"), null, null, treeTable);
 		tcm.setRoot(root);
-		tm.setRoot(root);
+		tm.setRoot (root);
 
-		InputMap inputs = treeTable.getInputMap();
+		InputMap  inputs  = treeTable.getInputMap ();
 		ActionMap actions = treeTable.getActionMap();
 		Actions nv = new Actions(true);
-		inputs.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, InputEvent.ALT_DOWN_MASK), nv);
+		inputs.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP  , InputEvent.ALT_DOWN_MASK), nv);
 		actions.put(nv, nv);
 		Actions pv = new Actions(false);
 		inputs.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.ALT_DOWN_MASK), pv);
@@ -698,9 +700,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 			x.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
