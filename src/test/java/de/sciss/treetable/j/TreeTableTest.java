@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,7 +162,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 		((DefaultTreeTableSorter)treeTable.getRowSorter()).setSortsOnUpdates(true);
 		
 		treeTable.setDragEnabled(true);
-		treeTable.setDropMode(DropMode.INSERT_ROWS);
+		treeTable.setDropMode(DropMode.ON_OR_INSERT_ROWS);
 		treeTable.setTransferHandler(new DummyTransferHandler());
 		
 		treeTable.setAutoCreateRowHeader(true);
@@ -174,21 +176,68 @@ public class TreeTableTest implements Runnable, ItemListener {
 	private /* static */ class DummyTransferHandler extends TransferHandler {
         @Override
 		public boolean canImport(TransferSupport support) {
-            // TreeTable.DropLocation dl = treeTable.getDropLocation();
-            // System.out.println("canImport (path = " + (dl == null ? "null" : dl.getPath()) + ")");
-            // treeTable.repaint();
-//			if (support.isDrop()) {
-//				return support.getDropLocation().getDropPoint().x < 200;
-//			}
-			return true;
+            Component c = support.getComponent();
+            // DropLocation dl = support.getDropLocation();
+            // if (dl == null) return false;
+
+            if (c instanceof TreeTable /* dl instanceof TreeTable.DropLocation */) {
+                TreeTable tt = (TreeTable) c;
+                // System.out.println("canImport (path = " + dl.getPath() + ", row = " + dl.getRow() +
+                //     ", column = " + dl.getColumn() + ", index = " + dl.getIndex() + ")");
+
+                // only allow to either insert or drop on first column folders
+                TreeTable.DropLocation tdl = tt.getDropLocation(); // (TreeTable.DropLocation) dl;
+                if (tdl.getIndex() == -1 && (tdl.getColumn() != 0 ||
+                    treeTable.getTreeModel().isLeaf(tdl.getPath().getLastPathComponent()))) return false;
+
+                return support.isDataFlavorSupported(DataFlavor.stringFlavor);
+            } else {
+                return true;
+            }
 		}
-		
+
 		@Override
 		protected Transferable createTransferable(JComponent c) {
-			return new StringSelection("dummy");
+            if (c instanceof TreeTable) {
+                TreePath p = treeTable.getSelectionPath();
+                if (p == null) return null;
+                return new StringSelection(p.getLastPathComponent().toString());
+
+            } else {
+                return new StringSelection("dummy");
+            }
 		}
-		
-		@Override
+
+        @Override
+        public boolean importData(TransferSupport support) {
+            Component    c  = support.getComponent();
+            // DropLocation dl = support.getDropLocation();
+            if (c != null && c instanceof TreeTable /* && dl != null && dl instanceof TreeTable.DropLocation */) {
+                TreeTable tt = (TreeTable) c;
+                TreeTable.DropLocation tdl = tt.getDropLocation(); // (TreeTable.DropLocation) dl;
+                if (tdl == null) return false;
+                try {
+                    String item = (String) support.getTransferable().getTransferData(DataFlavor.stringFlavor);
+                    DefaultTreeModel tm = (DefaultTreeModel) tt.getTreeModel();
+                    DefaultTreeTableNode parent = (DefaultTreeTableNode) tdl.getPath().getLastPathComponent();
+                    int index = tdl.getIndex() == -1 ? parent.getChildCount() : tdl.getIndex();
+                    DefaultTreeTableNode child = createNode(0, COLUMN_COUNT);
+                    child.setValueAt(item, 0);
+                    tm.insertNodeInto(child, parent, index);
+                    return true;
+
+                } catch (UnsupportedFlavorException e) {
+                    return false;
+                } catch (IOException e) {
+                    return false;
+                }
+
+            } else {
+                return false;
+            }
+        }
+
+        @Override
         public int getSourceActions(JComponent c) {
     	    return COPY | MOVE;
     	}
