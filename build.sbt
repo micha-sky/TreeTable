@@ -1,6 +1,6 @@
 name := "JTreeTable"
 
-version := "1.2.1-SNAPSHOT"
+version := "1.2.1"
 
 organization := "de.sciss"
 
@@ -38,16 +38,16 @@ pomExtra <<= name { n =>
   <connection>scm:git:git@github.com:Sciss/{n}.git</connection>
 </scm>
 <developers>
-   <developer>
-      <id>sciss</id>
-      <name>Hanns Holger Rutz</name>
-      <url>http://www.sciss.de</url>
-   </developer>
-   <developer>
-      <id>aephyr</id>
-      <name>unknown</name>
-      <url>http://code.google.com/p/aephyr/</url>
-   </developer>
+  <developer>
+    <id>sciss</id>
+    <name>Hanns Holger Rutz</name>
+    <url>http://www.sciss.de</url>
+  </developer>
+  <developer>
+    <id>aephyr</id>
+    <name>unknown</name>
+    <url>http://code.google.com/p/aephyr/</url>
+  </developer>
 </developers>
 }
 

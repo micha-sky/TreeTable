@@ -5,3 +5,11 @@ A TreeTable component for Swing. This started as a fork/clone from the project a
 All modifications and extensions (C)opyright 2013 by Hanns Holger Rutz. New project released under the GNU LGPL.
 
 The project builds with sbt 0.12. The TreeTable demo can be run with `sbt test:run`.
+
+## linking
+
+To use the library:
+
+    "de.sciss" % "jtreetable" % v
+
+The current version `v` is `1.2.1+`
