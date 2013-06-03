@@ -1,26 +1,24 @@
-name := "JTreeTable"
+name := "TreeTable"
 
-version := "1.2.1"
+version in ThisBuild := "1.3.0-SNAPSHOT"
 
-organization := "de.sciss"
+organization in ThisBuild := "de.sciss"
 
-// scalaVersion := "2.10.1"
-
-autoScalaLibrary := false
+scalaVersion in ThisBuild := "2.10.1"
 
 crossPaths := false
 
-description := "A TreeTable component for Swing"
+description in ThisBuild := "A TreeTable component for Swing"
 
-homepage <<= name { n => Some(url("https://github.com/Sciss/" + n)) }
+homepage in ThisBuild <<= name { n => Some(url("https://github.com/Sciss/" + n)) }
 
-licenses <<= name { n => Seq("BSD-style" -> url("https://raw.github.com/Sciss/" + n + "/master/LICENSE")) }
+licenses in ThisBuild <<= name { n => Seq("LGPL v2.1+" -> url("https://raw.github.com/Sciss/" + n + "/master/LICENSE")) }
 
 // ---- publishing ----
 
-publishMavenStyle := true
+publishMavenStyle in ThisBuild := true
 
-publishTo <<= version { (v: String) =>
+publishTo in ThisBuild <<= version { v =>
   Some(if (v endsWith "-SNAPSHOT")
     "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   else
@@ -28,26 +26,6 @@ publishTo <<= version { (v: String) =>
   )
 }
 
-publishArtifact in Test := false
+publishArtifact in Test in ThisBuild := false
 
-pomIncludeRepository := { _ => false }
-
-pomExtra <<= name { n =>
-<scm>
-  <url>git@github.com:Sciss/{n}.git</url>
-  <connection>scm:git:git@github.com:Sciss/{n}.git</connection>
-</scm>
-<developers>
-  <developer>
-    <id>sciss</id>
-    <name>Hanns Holger Rutz</name>
-    <url>http://www.sciss.de</url>
-  </developer>
-  <developer>
-    <id>aephyr</id>
-    <name>unknown</name>
-    <url>http://code.google.com/p/aephyr/</url>
-  </developer>
-</developers>
-}
-
+pomIncludeRepository in ThisBuild := { _ => false }
