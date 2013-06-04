@@ -31,26 +31,33 @@ import collection.breakOut
 
 sealed trait TreeModelEvent[A] extends Event {
   def model: TreeModel[A]
-  def parentPath: TreeTable.Path[A]
+  def path: TreeTable.Path[A]
   def children: Seq[(Int, A)]
 
   final private[treetable] def toJava(source: Any): jse.TreeModelEvent = {
     import TreeTable.pathToTreePath
-    val (idxSeq, nodesSeq) = children.unzip
-    val indices = idxSeq.toArray
-    val nodes: Array[AnyRef] = nodesSeq.map(_.asInstanceOf[AnyRef])(breakOut)
-    new jse.TreeModelEvent(source, parentPath, indices, nodes)
+    if (children.isEmpty) {
+      new jse.TreeModelEvent(source, path, null, null)
+    } else {
+      val (idxSeq, nodesSeq) = children.unzip
+      val indices = idxSeq.toArray
+      val nodes: Array[AnyRef] = nodesSeq.map(_.asInstanceOf[AnyRef])(breakOut)
+      new jse.TreeModelEvent(source, path, indices, nodes)
+    }
   }
 }
 
-final case class TreeNodesChanged[A](model: TreeModel[A], parentPath: TreeTable.Path[A], children: (Int, A)*)
+final case class TreeNodesChanged[A](model: TreeModel[A], path: TreeTable.Path[A], children: (Int, A)*)
   extends TreeModelEvent[A]
 
-final case class TreeNodesInserted[A](model: TreeModel[A], parentPath: TreeTable.Path[A], children: (Int, A)*)
+final case class TreeNodesInserted[A](model: TreeModel[A], path: TreeTable.Path[A], children: (Int, A)*)
   extends TreeModelEvent[A]
 
-final case class TreeNodesRemoved[A](model: TreeModel[A], parentPath: TreeTable.Path[A], children: (Int, A)*)
+final case class TreeNodesRemoved[A](model: TreeModel[A], path: TreeTable.Path[A], children: (Int, A)*)
   extends TreeModelEvent[A]
 
-final case class TreeStructureChanged[A](model: TreeModel[A], parentPath: TreeTable.Path[A], children: (Int, A)*)
-  extends TreeModelEvent[A]
+final case class TreeStructureChanged[A](model: TreeModel[A], path: TreeTable.Path[A])
+  extends TreeModelEvent[A] {
+
+  def children: Seq[(Int, A)] = Nil
+}

@@ -42,10 +42,10 @@ object TreeTable {
 
   implicit private[treetable] def pathToTreePath(p: Path[Any]): jtree.TreePath = {
     // TreePath must be non null and not empty... SUCKERS
-    if (p.isEmpty) null else {
+    // if (p.isEmpty) null else {
       val array: Array[AnyRef] = p.map(_.asInstanceOf[AnyRef])(breakOut)
       new jtree.TreePath(array)
-    }
+    // }
   }
 
   implicit private[treetable] def treePathToPath[A](tp: jtree.TreePath): Path[A] = {
