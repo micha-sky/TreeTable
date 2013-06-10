@@ -4,7 +4,7 @@ version in ThisBuild := "1.3.0-SNAPSHOT"
 
 organization in ThisBuild := "de.sciss"
 
-scalaVersion in ThisBuild := "2.10.1"
+scalaVersion in ThisBuild := "2.10.2"
 
 crossPaths := false
 

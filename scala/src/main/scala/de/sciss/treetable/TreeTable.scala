@@ -237,31 +237,31 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
       //    override def getValueAt(r: Int, c: Int) = Table.this.apply(r,c).asInstanceOf[AnyRef]
     }
 
-  def showsRootHandles                 : Boolean =  peer.getShowsRootHandles
+  def showsRootHandles                 : Boolean  = peer.getShowsRootHandles
   def showsRootHandles_=         (value: Boolean) { peer.setShowsRootHandles(value) }
 
-  def rootVisible                      : Boolean =  peer.isRootVisible
+  def rootVisible                      : Boolean  = peer.isRootVisible
   def rootVisible_=              (value: Boolean) { peer.setRootVisible(value) }
 
-  def autoCreateColumnHeader           : Boolean =  peer.getAutoCreateColumnHeader
+  def autoCreateColumnHeader           : Boolean  = peer.getAutoCreateColumnHeader
   def autoCreateColumnHeader_=   (value: Boolean) { peer.setAutoCreateColumnHeader(value) }
 
-  def autoCreateColumnsFromModel       : Boolean =  peer.getAutoCreateColumnsFromModel
-  def autoCreateColumnsFromModel_(value: Boolean) = { peer.getAutoCreateColumnsFromModel }
+  def autoCreateColumnsFromModel       : Boolean  = peer.getAutoCreateColumnsFromModel
+  def autoCreateColumnsFromModel_(value: Boolean) { peer.setAutoCreateColumnsFromModel(value) }
 
-  def autoCreateRowHeader              : Boolean =  peer.getAutoCreateRowHeader
-  def autoCreateRowHeader_=      (value: Boolean) { peer.getAutoCreateRowHeader }
+  def autoCreateRowHeader              : Boolean  = peer.getAutoCreateRowHeader
+  def autoCreateRowHeader_=      (value: Boolean) { peer.setAutoCreateRowHeader(value) }
 
-  def autoCreateRowSorter              : Boolean =  peer.getAutoCreateRowSorter
-  def autoCreateRowSorter_=      (value: Boolean) { peer.getAutoCreateRowSorter }
+  def autoCreateRowSorter              : Boolean  = peer.getAutoCreateRowSorter
+  def autoCreateRowSorter_=      (value: Boolean) { peer.setAutoCreateRowSorter(value) }
 
   // def autoscrolls                      : Boolean =  peer.getAutoscrolls
   // def autoscrolls_=(value              : Boolean) { peer.getAutoscrolls }
 
-  def dragEnabled                      : Boolean =  peer.getDragEnabled
+  def dragEnabled                      : Boolean  = peer.getDragEnabled
   def dragEnabled_=              (value: Boolean) { peer.setDragEnabled(value) }
 
-  def dropMode                        : DropMode = peer.getDropMode
+  def dropMode                        : DropMode  = peer.getDropMode
   def dropMode_=                (value: DropMode) { peer.setDropMode(value) }
 
   def expandPath(path: Path[A]) { peer.expandPath(path) }
