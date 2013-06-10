@@ -72,16 +72,35 @@ object TreeColumnModel {
     def hierarchicalColumn = 0
   }
 
-  abstract class Tuple2[A, T1, T2](val _1: Column[A, T1], val _2: Column[A, T2])
-    extends TupleLike[A] {
+  abstract class Tuple1[A, T1](val _1: Column[A, T1]) extends TupleLike[A] {
+    protected val columns = IIdxSeq(_1)
+  }
 
+  abstract class Tuple2[A, T1, T2](val _1: Column[A, T1], val _2: Column[A, T2]) extends TupleLike[A] {
     protected val columns = IIdxSeq(_1, _2)
   }
 
   abstract class Tuple3[A, T1, T2, T3](val _1: Column[A, T1], val _2: Column[A, T2], val _3: Column[A, T3])
     extends TupleLike[A] {
-
     protected val columns = IIdxSeq(_1, _2, _3)
+  }
+
+  abstract class Tuple4[A, T1, T2, T3, T4](val _1: Column[A, T1], val _2: Column[A, T2], val _3: Column[A, T3],
+                                           val _4: Column[A, T4])
+    extends TupleLike[A] {
+    protected val columns = IIdxSeq(_1, _2, _3, _4)
+  }
+
+  abstract class Tuple5[A, T1, T2, T3, T4, T5](val _1: Column[A, T1], val _2: Column[A, T2], val _3: Column[A, T3],
+                                               val _4: Column[A, T4], val _5: Column[A, T5])
+    extends TupleLike[A] {
+    protected val columns = IIdxSeq(_1, _2, _3, _4, _5)
+  }
+
+  abstract class Tuple6[A, T1, T2, T3, T4, T5, T6](val _1: Column[A, T1], val _2: Column[A, T2], val _3: Column[A, T3],
+                                                   val _4: Column[A, T4], val _5: Column[A, T5], val _6: Column[A, T6])
+    extends TupleLike[A] {
+    protected val columns = IIdxSeq(_1, _2, _3, _4, _5, _6)
   }
 }
 trait TreeColumnModel[A] extends Publisher {
