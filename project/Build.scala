@@ -22,6 +22,7 @@ object Build extends sbt.Build {
     settings = Project.defaultSettings ++ Seq(
       autoScalaLibrary := false,
       crossPaths := false,
+      // javacOptions += "-g",  // generate all debugging symbols
       pomExtra := pomExtraBoth
     )
   )
