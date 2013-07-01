@@ -1806,7 +1806,7 @@ public class TreeTable extends JComponent implements Scrollable {
         public void treeColumnChanged(TreeColumnModelEvent e) {
             TreePath path = e.getTreePath();
             if (rowSorter != null) {
-                RowSorter<?> sorter = rowSorter.getRowSorter(path.getLastPathComponent());
+                RowSorter<?> sorter = path.getParentPath() != null ? rowSorter.getRowSorter(path.getParentPath().getLastPathComponent()): null;
                 if (sorter != null && path.getParentPath() != null) {
                     boolean isc = ignoreSortedChange;
                     ignoreSortedChange = true;
