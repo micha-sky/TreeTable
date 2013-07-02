@@ -35,7 +35,7 @@ object Build extends sbt.Build {
       libraryDependencies <+= scalaVersion { sv =>
         "org.scala-lang" % "scala-swing" % sv
       },
-      pomExtra := pomBase ++ pomDevSciss
+      pomExtra := pomBase ++ pomDevsSciss
     )
   )
 
