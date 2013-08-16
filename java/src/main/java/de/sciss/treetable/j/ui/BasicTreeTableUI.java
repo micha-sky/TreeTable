@@ -946,7 +946,12 @@ public class BasicTreeTableUI extends TreeTableUI {
 		public Container getParent() {
 			return treeTable.getParent();
 		}
-		
+
+		public boolean getDragEnabled ()
+		{
+			return treeTable.getDragEnabled();
+		}
+
 		public boolean hasFocus() {
 			return false;
 		}
@@ -1066,7 +1071,11 @@ public class BasicTreeTableUI extends TreeTableUI {
 			return super.processKeyBinding(ks, e, condition, pressed);
 		}
 
-		
+		public boolean getDragEnabled ()
+		{
+			return treeTable.getDragEnabled();
+		}
+
 		public Container getParent() {
 			return treeTable.getParent();
 		}
