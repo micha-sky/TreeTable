@@ -1130,22 +1130,20 @@ public class BasicTreeTableUI extends TreeTableUI {
 			if (super.editCellAt(row, col, e)) {
 				if (col == treeTable.getHierarchicalColumn()) {
 					Rectangle b = tree.getRowBounds(row);
-					b.x = 0;
-					b.width = tree.getWidth();
+					b.x         = 0;
+					b.width     = tree.getWidth();
 					tree.repaint(b);
 				}
 				return true;
 			}
 			return false;
-//			return super.editCellAt(row, col, e);
+			// return super.editCellAt(row, col, e);
 		}
 		
 		public Component prepareEditor(TableCellEditor editor, int row, int col) {
 			return super.prepareEditor(editor, row, col);
-			
 		}
-		
-		
+
 		protected void addImpl(Component comp, Object constraints, int index) {
 			if (comp instanceof CellRendererPane) {
 				super.addImpl(comp, constraints, index);
@@ -1173,8 +1171,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 		public Font getFont() {
 			return treeTable.getFont();
 		}
-		
-		
+
 		public TableCellRenderer getCellRenderer(int row, int column) {
 			return treeTableCellRenderer;
 		}
@@ -1189,7 +1186,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 //				&& column == t.getLeadSelectionColumn()
 //				&& row == t.getLeadSelectionRow()
 //				&& t.isFocusOwner();
-			// Renderer will determine hasFocus value
+            // Renderer will determine hasFocus value
 			boolean foc = false;
 			return renderer.getTableCellRendererComponent(
 					this, value, sel, foc, row, column);
@@ -1714,8 +1711,6 @@ public class BasicTreeTableUI extends TreeTableUI {
 	            e.printStackTrace();
 	        }
 	    }
-
-		
 	}
  	
  	private int sortWidth = -1;
@@ -2005,7 +2000,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 			x += left;
 			y += top;
 			w -= left + right;
-			h -= top + bottom;
+			h -= top  + bottom;
 			paintComponent(g, c, null, x, y, w, h, true);
 		}
 		
@@ -2220,9 +2215,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 	
 	private class TreeEditorContainer extends Container {
 		
-		TreeEditorContainer() {
-
-		}
+		TreeEditorContainer() {}
 		
 		private Component component;
 		
@@ -2250,7 +2243,6 @@ public class BasicTreeTableUI extends TreeTableUI {
 			removeAll();
 			component = null;
 		}
-		
 	}
 	
 	private class TreeEditor extends CellEditorContainer<TableCellEditor> {
@@ -2383,16 +2375,14 @@ public class BasicTreeTableUI extends TreeTableUI {
 			if (treeTableEditor != null) {
 				getEditor().removeCellEditorListener(this);
 				treeTableEditor = null;
-				defaultEditor = null;
+				defaultEditor   = null;
 				if (treeEditorContainer != null)
 					treeEditorContainer.clearState();
 				if (defaultTreeEditor != null)
 					defaultTreeEditor.clearState();
 			}
 		}
-		
 	}
-	
 	
 
 	private class FocusRenderer extends DefaultTableCellRenderer.UIResource
@@ -2617,7 +2607,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 		
 		
 		/**
-		 * Dispatch the MouseEvent to the table or tree.
+		 * Dispatches the MouseEvent to the table or tree.
 		 */
 		protected void processMouseEvent(MouseEvent e) {
 			if (e.isConsumed() || e.isPopupTrigger())
@@ -2654,7 +2644,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 			e.consume();
 			return true;
 		}
-		
+
+        // returns `true` if event was dispatched to tree because it relates to the tree handle
 		private boolean dispatchToTree(MouseEvent e) {
 			switch (e.getID()) {
 			case MouseEvent.MOUSE_ENTERED:

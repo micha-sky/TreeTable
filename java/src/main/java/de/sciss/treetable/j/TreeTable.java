@@ -1907,8 +1907,8 @@ public class TreeTable extends JComponent implements Scrollable {
                 return null;
             int[] rows = new int[childNodes.length];
             int len = 0;
-            for (int i=0; i<childNodes.length; i++) {
-                TreePath path = parent.pathByAddingChild(childNodes[i]);
+            for (Object childNode : childNodes) {
+                TreePath path = parent.pathByAddingChild(childNode);
                 int r = getRowForPath(path);
                 if (r >= 0)
                     rows[len++] = r;
