@@ -25,8 +25,8 @@
 
 package de.sciss.treetable
 
-import scala.swing.{Publisher, Reactions, Component}
-import javax.swing.{table => jtab, tree => jtree, event => jse, DropMode}
+import scala.swing.{Dimension, Color, Publisher, Reactions, Component}
+import javax.swing.{table => jtab, tree => jtree, event => jse, Icon, DropMode}
 import collection.breakOut
 import language.implicitConversions
 import javax.swing.tree.TreePath
@@ -237,36 +237,133 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
       //    override def getValueAt(r: Int, c: Int) = Table.this.apply(r,c).asInstanceOf[AnyRef]
     }
 
-  def showsRootHandles                 : Boolean  = peer.getShowsRootHandles
-  def showsRootHandles_=         (value: Boolean) { peer.setShowsRootHandles(value) }
+  def autoCreateColumnHeader           : Boolean          = peer.getAutoCreateColumnHeader
+  def autoCreateColumnHeader_=   (value: Boolean  ): Unit = peer.setAutoCreateColumnHeader(value)
 
-  def rootVisible                      : Boolean  = peer.isRootVisible
-  def rootVisible_=              (value: Boolean) { peer.setRootVisible(value) }
+  def autoCreateColumnsFromModel       : Boolean          = peer.getAutoCreateColumnsFromModel
+  def autoCreateColumnsFromModel_(value: Boolean  ): Unit = peer.setAutoCreateColumnsFromModel(value)
 
-  def autoCreateColumnHeader           : Boolean  = peer.getAutoCreateColumnHeader
-  def autoCreateColumnHeader_=   (value: Boolean) { peer.setAutoCreateColumnHeader(value) }
+  def autoCreateRowHeader              : Boolean          = peer.getAutoCreateRowHeader
+  def autoCreateRowHeader_=      (value: Boolean  ): Unit = peer.setAutoCreateRowHeader(value)
 
-  def autoCreateColumnsFromModel       : Boolean  = peer.getAutoCreateColumnsFromModel
-  def autoCreateColumnsFromModel_(value: Boolean) { peer.setAutoCreateColumnsFromModel(value) }
+  def autoCreateRowSorter              : Boolean          = peer.getAutoCreateRowSorter
+  def autoCreateRowSorter_=      (value: Boolean  ): Unit = peer.setAutoCreateRowSorter(value)
 
-  def autoCreateRowHeader              : Boolean  = peer.getAutoCreateRowHeader
-  def autoCreateRowHeader_=      (value: Boolean) { peer.setAutoCreateRowHeader(value) }
+  def cellSelectionEnabled             : Boolean          = peer.getCellSelectionEnabled
+  def cellSelectionEnabled_=     (value: Boolean  ): Unit = peer.setCellSelectionEnabled(value)
 
-  def autoCreateRowSorter              : Boolean  = peer.getAutoCreateRowSorter
-  def autoCreateRowSorter_=      (value: Boolean) { peer.setAutoCreateRowSorter(value) }
+  def columnFocusEnabled               : Boolean          = peer.isColumnFocusEnabled
+  def columnFocusEnabled_=       (value: Boolean  ): Unit = peer.setColumnFocusEnabled(value)
+
+  def columnSelectionAllowed           : Boolean          = peer.getColumnSelectionAllowed
+  def columnSelectionAllowed_=   (value: Boolean  ): Unit = peer.setColumnSelectionAllowed(value)
+
+  def rowSelectionAllowed              : Boolean          = peer.getRowSelectionAllowed
+  def rowSelectionAllowed_=      (value: Boolean  ): Unit = peer.setRowSelectionAllowed(value)
+
+  def expandsSortedNodes               : Boolean          = peer.getExpandsSortedNodes
+  def expandsSortedNodes_=       (value: Boolean  ): Unit = peer.setExpandesSortedNodes(value)
+
+  def expandsSelectedPaths             : Boolean          = peer.getExpandsSelectedPaths
+  def expandsSelectedPaths_=     (value: Boolean  ): Unit = peer.setExpandsSelectedPaths(value)
+
+  def largeModel                       : Boolean          = peer.isLargeModel
+  def largeModel_=               (value: Boolean  ): Unit = peer.setLargeModel(value)
+
+  def nodeSortingEnabled               : Boolean          = peer.isNodeSortingEnabled
+  def nodeSortingEnabled_=       (value: Boolean  ): Unit = peer.setNodeSortingEnabled(value)
+
+  def rootVisible                      : Boolean          = peer.isRootVisible
+  def rootVisible_=              (value: Boolean  ): Unit = peer.setRootVisible(value)
+
+  def scrollsOnExpand                  : Boolean          = peer.getScrollsOnExpand
+  def scrollsOnExpand_=          (value: Boolean  ): Unit = peer.setScrollsOnExpand(value)
+
+  // isShowGrid
+
+  def showHorizontalLines              : Boolean          = peer.getShowHorizontalLines
+  def showHorizontalLines_=      (value: Boolean  ): Unit = peer.setShowHorizontalLines(value)
+
+  def showVerticalLines                : Boolean          = peer.getShowVerticalLines
+  def showVerticalLines_=        (value: Boolean  ): Unit = peer.setShowVerticalLines(value)
+
+  def showsRootHandles                 : Boolean          = peer.getShowsRootHandles
+  def showsRootHandles_=         (value: Boolean  ): Unit = peer.setShowsRootHandles(value)
+
+  def rowHeight                        : Int              = peer.getRowHeight
+  def rowHeight_=                (value: Int      ): Unit = peer.setRowHeight(value)
+
+  def rowMargin                        : Int              = peer.getRowMargin
+  def rowMargin_=                (value: Int      ): Unit = peer.setRowMargin(value)
+
+  def toggleClickCount                 : Int              = peer.getToggleClickCount
+  def toggleClickCount_=         (value: Int      ): Unit = peer.setToggleClickCount(value)
+
+  def visibleRowCount                  : Int              = peer.getVisibleRowCount
+  def visibleRowCount_=          (value: Int      ): Unit = peer.setVisibleRowCount(value)
+
+  def intercellSpacing                 : Dimension        = peer.getIntercellSpacing
+  def intercellSpacing_=         (value: Dimension): Unit = peer.setIntercellSpacing(value)
+
+  def alternativeRowColor              : Color            = peer.getAlternateRowColor
+  def alternativeRowColor_=      (value: Color    ): Unit = peer.setAlternateRowColor(value)
+
+  def gridColor                        : Color            = peer.getGridColor
+  def gridColor_=                (value: Color    ): Unit = peer.setGridColor(value)
+
+  def selectionBackground               : Color            = peer.getSelectionBackground
+  def selectionBackground_=       (value: Color    ): Unit = peer.setSelectionBackground(value)
+
+  def selectionForeground               : Color            = peer.getSelectionForeground
+  def selectionForeground_=       (value: Color    ): Unit = peer.setSelectionForeground(value)
+
+  def openIcon                         : Icon             = peer.getOpenIcon
+  def openIcon_=                 (value: Icon     ): Unit = peer.setOpenIcon(value)
+
+  def leafIcon                         : Icon             = peer.getLeafIcon
+  def leafIcon_=                 (value: Icon     ): Unit = peer.setLeafIcon(value)
+
+  def closedIcon                       : Icon             = peer.getClosedIcon
+  def closedIcon_=               (value: Icon     ): Unit = peer.setClosedIcon(value)
+
+  def ascendingSortIcon                : Icon             = peer.getAscendingSortIcon
+  def ascendingSortIcon_=        (value: Icon     ): Unit = peer.setAscendingSortIcon(value)
+
+  def descendingSortIcon               : Icon             = peer.getDescendingSortIcon
+  def descendingSortIcon_=       (value: Icon     ): Unit = peer.setDescendingSortIcon(value)
 
   // def autoscrolls                      : Boolean =  peer.getAutoscrolls
   // def autoscrolls_=(value              : Boolean) { peer.getAutoscrolls }
 
-  def dragEnabled                      : Boolean  = peer.getDragEnabled
-  def dragEnabled_=              (value: Boolean) { peer.setDragEnabled(value) }
+  def dragEnabled                      : Boolean          = peer.getDragEnabled
+  def dragEnabled_=              (value: Boolean  ): Unit = peer.setDragEnabled(value)
 
-  def dropMode                        : DropMode  = peer.getDropMode
-  def dropMode_=                (value: DropMode) { peer.setDropMode(value) }
+  def dropMode                        : DropMode          = peer.getDropMode
+  def dropMode_=                (value: DropMode  ): Unit = peer.setDropMode(value)
 
-  def expandPath(path: Path[A]) { peer.expandPath(path) }
+  def expandPath(path: Path[A]): Unit = peer.expandPath(path)
 
   def hierarchicalColumn: Int = peer.getHierarchicalColumn
+
+  def isCellEditable(row: Int, column: Int): Boolean = peer.isCellEditable(row, column)
+  def isCellSelected(row: Int, column: Int): Boolean = peer.isCellSelected(row, column)
+
+  def isCollapsed(path: Path[A]): Boolean = peer.isCollapsed(path)
+  def isCollapsed(row : Int    ): Boolean = peer.isCollapsed(row )
+
+  def isExpanded (path: Path[A]): Boolean = peer.isExpanded (path)
+  def isExpanded (row : Int    ): Boolean = peer.isExpanded (row )
+
+  def isLeaf     (path: Path[A]): Boolean = peer.isLeaf     (path)
+
+  // = selection.path.contains
+  // def isPathSelected  (path  : Path[A]): Boolean = peer.isPathSelected  (path  )
+
+  def isColumnSelected(column: Int    ): Boolean = peer.isColumnSelected(column)
+  def isRowSelected   (row   : Int    ): Boolean = peer.isRowSelected   (row   )
+
+  def isEditing       : Boolean = peer.isEditing
+  def isFixedRowHeight: Boolean = peer.isFixedRowHeight
 
   // def apply(row: Int, column: Int): Any = peer.getValueAt(row, column)
   def getNode(row: Int): A = peer.getNode(row).asInstanceOf[A]
