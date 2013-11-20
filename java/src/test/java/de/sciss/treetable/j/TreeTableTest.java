@@ -832,7 +832,7 @@ public class TreeTableTest implements Runnable, ItemListener {
 	
 	private enum Modifier implements ActionListener {
 		
-		ADD_NODE, REMOVE_NODE, CHANGE_NODE, STRUCTURE_CHANGE;
+		EDIT_NODE, ADD_NODE, REMOVE_NODE, CHANGE_NODE, STRUCTURE_CHANGE;
 		
 		private Modifier() {
 			char[] c = name().toCharArray();
@@ -911,6 +911,29 @@ public class TreeTableTest implements Runnable, ItemListener {
 		}
 		
 		void modify(TreeTable treeTable) {
+            if (this.equals(EDIT_NODE)) {
+                // treeTable.editCellAt(0, 0);
+
+                // ... TODO: nothing works, editor doesn't focus properly ...
+
+                Rectangle r = treeTable.getCellRect(0, 0, false);
+                MouseEvent e = new MouseEvent(treeTable, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, r.x, r.y, 2, false, 0);
+                treeTable.getCellEditor(0, 0).isCellEditable(e);
+                treeTable.editCellAt(0, 0);
+                treeTable.requestFocus();
+                // treeTable.editCellAt(0, 0);
+                // treeTable.getCellEditor().shouldSelectCell(new ListSelectionEvent(this, 0, 0, true));
+                // treeTable.editCellAt(0, 0);
+
+//                int x = 100;
+//                int y = 40;
+//                treeTable.processMouseEvent(
+//                        new MouseEvent(treeTable, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
+//                                              x, y, 2, false, 0)
+//                );
+                return;
+            }
+
 			TreePath[] paths = treeTable.getSelectionPaths();
 			if (paths == null || paths.length == 0) {
 				switch (this) {

@@ -368,7 +368,16 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
   // def apply(row: Int, column: Int): Any = peer.getValueAt(row, column)
   def getNode(row: Int): A = peer.getNode(row).asInstanceOf[A]
 
+  def getRowForPath(path: Path[A]): Int = peer.getRowForPath(path)
+
+  def editCellAt(row: Int, column: Int): Boolean = peer.editCellAt(row, column)
+  def startEditingAtPath(path: Path[A]): Boolean = peer.startEditingAtPath(path)
+  def startEditing(row: Int)           : Boolean = peer.startEditingAtRow(row)
+
   def dropLocation: Option[TreeTable.DropLocation[A]] = Option(peer.getDropLocation).map(TreeTable.DropLocation[A])
+
+  def changeSelection(row: Int, column: Int, toggle: Boolean = false, extend: Boolean = false): Unit =
+    peer.changeSelection(row, column, toggle, extend)
 
   object selection extends Publisher {
     protected abstract class SelectionSet[B](a: => Seq[B]) extends mutable.Set[B] {
@@ -383,14 +392,47 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
       val p = peer.getSelectionPaths
       if (p == null) Seq.empty else p.map(treePathToPath)(breakOut)
     }) {
-      def -=(p: Path[A]) = { peer.removeSelectionPath(p); this }
-      def +=(p: Path[A]) = { peer.addSelectionPath(p); this }
-      def --=(ps: Seq[Path[A]]) = { peer.removeSelectionPaths(ps.map(pathToTreePath).toArray); this }
-      def ++=(ps: Seq[Path[A]]) = { peer.addSelectionPaths(ps.map(pathToTreePath).toArray); this }
+      def -= (p :     Path[A] ) = { peer.removeSelectionPath (p)                               ; this }
+      def += (p :     Path[A] ) = { peer.addSelectionPath    (p)                               ; this }
+      def --=(ps: Seq[Path[A]]) = { peer.removeSelectionPaths(ps.map(pathToTreePath)(breakOut)); this }
+      def ++=(ps: Seq[Path[A]]) = { peer.addSelectionPaths   (ps.map(pathToTreePath)(breakOut)); this }
+
       def leadSelection: Option[Path[A]] = Option(peer.getLeadSelectionPath)
 
       override def size = peer.getSelectionCount
     }
+
+    object rows extends SelectionSet(peer.getSelectedRows) {
+      def -=(n: Int) = { peer.removeSelectionRow(n); this }
+      def +=(n: Int) = { peer.addSelectionRow   (n); this }
+
+      def leadIndex  : Int = peer.getSelectionModel.getLeadSelectionRow
+      // def anchorIndex: Int = peer.getSelectionModel.getAnchorSelectionRow
+
+      override def size = peer.getSelectionCount
+    }
+
+    // cells is a PITA peer-wise
+
+    //    object cells extends SelectionSet[(Int, Int)]({
+    //      // (for(r <- selection.rows; c <- selection.columns) yield (r,c)).toSeq
+    //      ...
+    //
+    //    }) {
+    //      def -=(n: (Int, Int)) = {
+    //        // peer.removeRowSelectionInterval(n._1,n._1)
+    //        // peer.removeColumnSelectionInterval(n._2,n._2)
+    //        peer.removeSelectionRow(n._1)
+    //        peer.removeColumn
+    //        this
+    //      }
+    //      def +=(n: (Int, Int)) = {
+    //        // peer.addRowSelectionInterval(n._1,n._1)
+    //        // peer.addColumnSelectionInterval(n._2,n._2)
+    //        this
+    //      }
+    //      override def size = peer.getSelectedRowCount * peer.getSelectedColumnCount
+    //    }
 
     peer.getSelectionModel.addTreeSelectionListener(new jse.TreeSelectionListener {
       def valueChanged(e: jse.TreeSelectionEvent) {
@@ -403,6 +445,8 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
                 Option(e.getOldLeadSelectionPath: Path[A])))
       }
     })
+
+    // TODO: rows, cells, ...
 
     // def cellValues: Iterator[A] = ...
 
