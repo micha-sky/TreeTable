@@ -19,11 +19,11 @@ To use the library:
     "de.sciss" %  "treetable-java"  % v  // Java only component
     "de.sciss" %% "treetable-scala" % v  // Scala component
 
-The current version `v` is `1.3.2+`
+The current version `v` is `"1.3.3+"`
 
 ## building
 
-This project compiles against Scala 2.10 and sbt 0.12.
+This project compiles against Scala 2.10 and sbt 0.13.
 
 ## known issues
 
