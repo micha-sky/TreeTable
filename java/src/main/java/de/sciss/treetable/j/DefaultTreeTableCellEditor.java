@@ -60,14 +60,14 @@ public class DefaultTreeTableCellEditor extends DefaultCellEditor
 	}
 	
 	@Override
-	public final Component getTableCellEditorComponent(JTable table,
+	public /* final */ Component getTableCellEditorComponent(JTable table,
 			Object value, boolean selected, int row, int column) {
 		return super.getTableCellEditorComponent(
 				table, value, selected, row, column);
 	}
 	
 	@Override
-	public final Component getTreeCellEditorComponent(JTree tree,
+	public /* final */ Component getTreeCellEditorComponent(JTree tree,
 			Object value, boolean selected, boolean expanded, boolean leaf, int row) {
 		return super.getTreeCellEditorComponent(
 				tree, value, selected, expanded, leaf, row);
