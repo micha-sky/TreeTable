@@ -759,7 +759,7 @@ public class TreeTable extends JComponent implements Scrollable {
 
     public void setTreeModel(TreeModel treeModel) {
         TreeModel oldValue = getTreeModel();
-        adapter.treeModel = treeModel;
+        adapter.setTreeModel(treeModel);
         firePropertyChange("treeModel", oldValue, getTreeModel());
         if (getAutoCreateRowSorter())
             autoCreateRowSorter();
@@ -1734,6 +1734,20 @@ public class TreeTable extends JComponent implements Scrollable {
         private TreeTableSorter<? extends TreeModel, ? extends TreeColumnModel> rowSorter;
 
         private boolean ignoreSortedChange = false;
+
+        public void setTreeModel(TreeModel m) {
+            if (treeModel != null) {
+                treeModel.removeTreeModelListener(this);
+            }
+
+            treeModel = m;
+
+            if (treeModel != null) {
+                treeModel.addTreeModelListener(this);
+                TreeModelEvent e = new TreeModelEvent(treeModel, new TreePath(treeModel.getRoot()));
+                treeStructureChanged(e);
+            }
+        }
 
         public void setRowSorter(TreeTableSorter<? extends TreeModel, ? extends TreeColumnModel> sorter) {
             if (rowSorter != null)
