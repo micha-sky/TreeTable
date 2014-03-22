@@ -304,8 +304,11 @@ public class BasicTreeTableUI extends TreeTableUI {
 			UIDefaults map = new UIDefaults();
 			// Problematic for 1.6 & 1.7 compatibility
 			Painter<JComponent> painter = new Painter<JComponent>() {
-				public void paint(Graphics2D g, JComponent c, int w, int h) {}
-			};
+				// public void paint(Graphics2D g, JComponent c, int w, int h) {}
+
+                @Override
+                public void paint(Graphics2D g, Object object, int width, int height) {}
+            };
 			
 			map.put("Tree:TreeCell[Enabled+Selected].backgroundPainter", painter);
 			map.put("Tree:TreeCell[Focused+Selected].backgroundPainter", painter);
@@ -313,7 +316,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 
 			tree.putClientProperty("Nimbus.Overrides", map);
 		} else {
-			tree.putClientProperty("Nimus.Overrides", null);
+			tree.putClientProperty("Nimbus.Overrides", null);
 		}
 	}
 	

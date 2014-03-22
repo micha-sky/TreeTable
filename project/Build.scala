@@ -21,8 +21,8 @@ object Build extends sbt.Build {
     base = file("java"),
     settings = Project.defaultSettings ++ Seq(
       autoScalaLibrary := false,
-      crossPaths := false,
-      javacOptions in Compile += "-g",        // this is passed to javadoc (WTF?!), so the following line is needed:
+      crossPaths       := false,
+      javacOptions in Compile ++= Seq("-g", "-target", "1.6", "-source", "1.6"),
       javacOptions in (Compile, doc) := Nil,  // yeah right, sssssuckers
       pomExtra := pomExtraBoth
     )
@@ -33,8 +33,12 @@ object Build extends sbt.Build {
     base = file("scala"),
     dependencies = Seq(javaProject),
     settings = Project.defaultSettings ++ Seq(
-      libraryDependencies <+= scalaVersion { sv =>
-        "org.scala-lang" % "scala-swing" % sv
+      libraryDependencies += {
+        val sv = scalaVersion.value
+        if (sv startsWith "2.10")
+          "org.scala-lang" % "scala-swing" % sv
+        else
+          "org.scala-lang.modules" %% "scala-swing" % "1.0.1"
       },
       pomExtra := pomBase ++ pomDevsSciss
     )
