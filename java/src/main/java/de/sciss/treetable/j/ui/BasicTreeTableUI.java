@@ -302,10 +302,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 	private void updateTreeClientProperties(JTree tree) {
 		if (isNimbus()) {
 			UIDefaults map = new UIDefaults();
-			// Problematic for 1.6 & 1.7 compatibility
-			Painter<JComponent> painter = new Painter<JComponent>() {
-				// public void paint(Graphics2D g, JComponent c, int w, int h) {}
-
+            // Use raw types to allow compilation in 1.6 and 1.7
+            Painter painter = new Painter() {
                 @Override
                 public void paint(Graphics2D g, Object object, int width, int height) {}
             };
@@ -987,7 +985,6 @@ public class BasicTreeTableUI extends TreeTableUI {
 		}
 		
 		public boolean requestFocus(boolean temporary) {
-			javax.swing.plaf.basic.BasicTableUI u;
 			return treeTable.requestFocus(temporary);
 		}
 		
@@ -2426,11 +2423,9 @@ public class BasicTreeTableUI extends TreeTableUI {
 		return treeHandleWidth;
 	}
 	
-	protected void processKeyBinding(JComponent c, KeyStroke ks,
+	protected boolean processKeyBinding(JComponent c, KeyStroke ks,
 			KeyEvent e, int condition, boolean pressed) {
-		if (c instanceof ProcessKeyBinding)
-			((ProcessKeyBinding)c).processKeyBinding(
-					ks, e, condition, pressed);
+        return c instanceof ProcessKeyBinding && ((ProcessKeyBinding) c).processKeyBinding(ks, e, condition, pressed);
 	}
 	
 	protected class Handler extends MouseAdapter
@@ -2601,9 +2596,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 			int condition = c.getConditionForKeyStroke(ks);
 			if (condition == JComponent.WHEN_FOCUSED ||
 					condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
-				processKeyBinding(c, ks, e, condition, !ks.isOnKeyRelease());
-				e.consume();
-				return true;
+				if (processKeyBinding(c, ks, e, condition, !ks.isOnKeyRelease())) {
+                    e.consume();
+                    return true;
+                }
 			}
 			return false;
 		}
@@ -2826,8 +2822,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 
 		rect = getHDropLineRect(loc);
 		if (rect != null) {
-			int x = rect.x;
-			int w = rect.width;
+//			int x = rect.x;
+//			int w = rect.width;
 			if (color != null) {
 				extendRect(rect, true);
 				g.setColor(color);
@@ -2852,8 +2848,8 @@ public class BasicTreeTableUI extends TreeTableUI {
 
 		rect = getVDropLineRect(loc);
 		if (rect != null) {
-			int y = rect.y;
-			int h = rect.height;
+//			int y = rect.y;
+//			int h = rect.height;
 			if (color != null) {
 				extendRect(rect, false);
 				g.setColor(color);
@@ -2933,7 +2929,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 	// BasicTableUI.extendRect...
     private Rectangle extendRect(Rectangle rect, boolean horizontal) {
         if (rect == null) {
-            return rect;
+            return null;
         }
 
         if (horizontal) {
