@@ -8,11 +8,12 @@ object Build extends sbt.Build {
     aggregate     = Seq(javaProject, scalaProject),
     dependencies  = Seq(javaProject, scalaProject), // i.e. root = full sub project. if you depend on root, will draw all sub modules.
     settings      = Project.defaultSettings ++ Seq(
-      publishArtifact in(Compile, packageBin) := false, // there are no binaries
-      publishArtifact in(Compile, packageDoc) := false, // there are no javadocs
-      publishArtifact in(Compile, packageSrc) := false, // there are no sources
-      autoScalaLibrary := false,
-      pomExtra := pomExtraBoth
+      // publishArtifact in(Compile, packageBin) := false, // there are no binaries
+      // publishArtifact in(Compile, packageDoc) := false, // there are no javadocs
+      // publishArtifact in(Compile, packageSrc) := false, // there are no sources
+      packagedArtifacts := Map.empty           // prevent publishing anything!
+      // autoScalaLibrary := false,
+      // pomExtra := pomExtraBoth
     )
   )
 
