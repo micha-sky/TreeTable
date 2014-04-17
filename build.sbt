@@ -4,9 +4,9 @@ version in ThisBuild            := "1.3.5-SNAPSHOT"
 
 organization in ThisBuild       := "de.sciss"
 
-scalaVersion in ThisBuild       := "2.10.4"
+scalaVersion in ThisBuild       := "2.11.0"
 
-crossScalaVersions in ThisBuild := Seq("2.11.0-RC3", "2.10.4")
+crossScalaVersions in ThisBuild := Seq("2.11.0", "2.10.4")
 
 javacOptions in ThisBuild      ++= Seq("-source", "1.6", "-target", "1.6")
 
