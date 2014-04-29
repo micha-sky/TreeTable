@@ -317,10 +317,14 @@ public class BasicTreeTableUI extends TreeTableUI {
 			tree.putClientProperty("Nimbus.Overrides", null);
 		}
 	}
-	
-	private boolean isNimbus() {
-		// TODO, change to class path
-		return "Nimbus".equals(UIManager.getLookAndFeel().getName());
+
+    private boolean isNimbus() {
+        // TODO, change to class path
+        return "Nimbus".equals(UIManager.getLookAndFeel().getName());
+    }
+
+	private boolean isWebLaF() {
+		return "WebLookAndFeel".equals(UIManager.getLookAndFeel().getName());
 	}
 	
 	private void remap(InputMap inputs, int code) {
@@ -2108,7 +2112,7 @@ public class BasicTreeTableUI extends TreeTableUI {
 				c.setForeground(fg != null ? fg :
 						treeTable.getSelectionForeground());
 				c.setBackground(bg != null ? bg :
-						treeTable.getSelectionBackground());
+                        treeTable.getSelectionBackground());
 			} else {
 				c.setForeground(treeTable.getForeground());
 				if (backgroundColor == null)
@@ -2180,10 +2184,10 @@ public class BasicTreeTableUI extends TreeTableUI {
 				boolean foc, int row, int col, boolean exp, boolean leaf) {
 			
 			renderer.setOpaque(false);
-			
-			Color fg = sel ?
-					treeTable.getSelectionForeground():
-					treeTable.getForeground();
+
+            Color fg = sel ?
+                    (isWebLaF() ? null : treeTable.getSelectionForeground()):
+                    treeTable.getForeground();
 			renderer.setForeground(fg);
 
 			Icon icon = treeTable.getIcon(value, exp, leaf);
