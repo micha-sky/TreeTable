@@ -53,18 +53,17 @@ object TreeTable {
     else tp.getPath.map(_.asInstanceOf[A])(breakOut) // .toIndexedSeq
   }
 
-  final case class DropLocation[A](private val peer: j.TreeTable.DropLocation) {
+  case class DropLocation[+A](private val peer: j.TreeTable.DropLocation) {
     def path: Path[A] = peer.getPath
 
-    /**
-     * Returns the child index within the last branch of the path.
-     *
-     * @return  the index at which a drop occurs within the children of
-     *          the branch denoted by `getPath`. For example, `0` means
-     *          the drop happens before the first child, `1` means it
-     *          happens after the first child. For `ON` drop mode, `-1`
-     *          indicates that the drop occurs above the parent node.
-     */
+    /** Returns the child index within the last branch of the path.
+      *
+      * @return  the index at which a drop occurs within the children of
+      *          the branch denoted by `getPath`. For example, `0` means
+      *          the drop happens before the first child, `1` means it
+      *          happens after the first child. For `ON` drop mode, `-1`
+      *          indicates that the drop occurs above the parent node.
+      */
     def index : Int = peer.getIndex
     def row   : Int = peer.getRow
     def column: Int = peer.getColumn
@@ -85,8 +84,8 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
     this(treeModel0, treeColumnModel0, null)
   }
 
-  private var _treeModel        = treeModel0
-  private var _treeColumnModel  = treeColumnModel0
+  private val /* var */ _treeModel        = treeModel0
+  private val /* var */ _treeColumnModel  = treeColumnModel0
   // private var _tableColumnModel = tableColumnModel0
   private var _renderer: TreeTableCellRenderer = _
 
@@ -124,7 +123,7 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
   private def wrapTreeModel(_peer: TreeModel[A]): jtree.TreeModel = new {
     val peer = _peer
   } with jtree.TreeModel {
-    jmodel =>
+    jModel =>
 
     // val peer = _treeModel
 
@@ -145,19 +144,19 @@ class TreeTable[A, Col <: TreeColumnModel[A]](treeModel0: TreeModel[A], treeColu
 
     private val reaction: Reactions.Reaction = {
       case te: TreeNodesChanged[_] =>
-        val evt = te.toJava(jmodel)
+        val evt = te.toJava(jModel)
         listeners.foreach { l => l.treeNodesChanged(evt) }
 
       case te: TreeNodesInserted[_] =>
-        val evt = te.toJava(jmodel)
+        val evt = te.toJava(jModel)
         listeners.foreach { l => l.treeNodesInserted(evt) }
 
       case te: TreeNodesRemoved[_] =>
-        val evt = te.toJava(jmodel)
+        val evt = te.toJava(jModel)
         listeners.foreach { l => l.treeNodesRemoved(evt) }
 
       case te: TreeStructureChanged[_] =>
-        val evt = te.toJava(jmodel)
+        val evt = te.toJava(jModel)
         listeners.foreach { l => l.treeStructureChanged(evt) }
     }
 

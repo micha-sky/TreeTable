@@ -1,6 +1,6 @@
 name := "TreeTable"
 
-version in ThisBuild            := "1.3.6"
+version in ThisBuild            := "1.3.7"
 
 organization in ThisBuild       := "de.sciss"
 

@@ -1,10 +1,10 @@
 # TreeTable
 
-A TreeTable component for Swing. This started as a fork/clone from the Java project at https://code.google.com/p/aephyr/ -- "Swing components, accessories, utilities, etc for use in a GUI", released under the GNU LGPL. The original author was `drael4...@gmail.com`.
+A TreeTable component for Swing. This started as a fork/clone from the Java project at [https://code.google.com/p/aephyr/](code.google.com/p/aephyr) -- "Swing components, accessories, utilities, etc for use in a GUI", released under the GNU LGPL v3+. The original author was `drael4...@gmail.com`.
 
 The Java component, in sub project `java`, is accompanied by Scala-Swing component, in sub project `scala`.
 
-All modifications, extensions and Scala project (C)opyright 2013&ndash;2014 by Hanns Holger Rutz. New project released under the GNU LGPL.
+All modifications, extensions and Scala project (C)opyright 2013&ndash;2014 by Hanns Holger Rutz. New project released under the GNU LGPL v3+.
 
 ## example
 
