@@ -1916,9 +1916,19 @@ public class TreeTable extends JComponent implements Scrollable {
         private int[] getRows(TreePath parent, Object[] childNodes) {
             if (!isExpanded(parent))
                 return null;
-            int row = getRowForPath(parent);
-            if (row < 0)
-                return null;
+
+            // The following is commented out because it
+            // results in missing visual refresh when
+            // root is not visible. We haven't encountered
+            // any problems so far by removing the
+            // check against `row`. Unfortunately the
+            // value `-1` may indicate different things,
+            // not just that the parent is not found,
+            // but also that the parent is an invisible root.
+
+//            int row = getRowForPath(parent);
+//            if (row < 0)
+//                return null;
             int[] rows = new int[childNodes.length];
             int len = 0;
             for (Object childNode : childNodes) {

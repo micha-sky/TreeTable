@@ -4,7 +4,7 @@ A TreeTable component for Swing. This started as a fork/clone from the Java proj
 
 The Java component, in sub project `java`, is accompanied by Scala-Swing component, in sub project `scala`.
 
-All modifications, extensions and Scala project (C)opyright 2013&ndash;2014 by Hanns Holger Rutz. New project released under the GNU LGPL v3+.
+All modifications, extensions and Scala project (C)opyright 2013&ndash;2015 by Hanns Holger Rutz. New project released under the GNU LGPL v3+.
 
 ## example
 
@@ -19,7 +19,7 @@ To use the library:
     "de.sciss" %  "treetable-java"  % v  // Java only component
     "de.sciss" %% "treetable-scala" % v  // Scala component
 
-The current version `v` is `"1.3.6+"`
+The current version `v` is `"1.3.7"`
 
 ## building
 
