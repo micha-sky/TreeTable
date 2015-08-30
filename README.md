@@ -22,7 +22,7 @@ To use the library:
     "de.sciss" %  "treetable-java"  % v  // Java only component
     "de.sciss" %% "treetable-scala" % v  // Scala component
 
-The current version `v` is `"1.3.7"`
+The current version `v` is `"1.3.8"`
 
 ## building
 
