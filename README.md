@@ -1,13 +1,14 @@
+# TreeTable
+
+[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=sciss&url=https%3A%2F%2Fgithub.com%2FSciss%2FTreeTable&title=TreeTable&language=Scala&tags=github&category=software)
 [![Build Status](https://travis-ci.org/Sciss/TreeTable.svg?branch=master)](https://travis-ci.org/Sciss/TreeTable)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.sciss/treetable-scala_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.sciss/treetable-scala_2.11)
-
-# TreeTable
 
 A TreeTable component for Swing. This started as a fork/clone from the Java project at [https://code.google.com/p/aephyr/](code.google.com/p/aephyr) -- "Swing components, accessories, utilities, etc for use in a GUI", released under the GNU LGPL v3+. The original author was `drael4...@gmail.com`.
 
 The Java component, in sub project `java`, is accompanied by Scala-Swing component, in sub project `scala`.
 
-All modifications, extensions and Scala project (C)opyright 2013&ndash;2015 by Hanns Holger Rutz. New project released under the GNU LGPL v3+.
+All modifications, extensions and Scala project (C)opyright 2013&ndash;2016 by Hanns Holger Rutz. New project released under the GNU LGPL v3+.
 
 ## example
 
@@ -27,6 +28,10 @@ The current version `v` is `"1.3.8"`
 ## building
 
 This project compiles against Scala 2.11, 2.10 and sbt 0.13.
+
+## contributing
+
+Please see the file [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## known issues
 
