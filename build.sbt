@@ -4,12 +4,18 @@ lazy val baseNameL = baseName.toLowerCase
 
 name := baseName
 
+// ---- test dependencies ----
+lazy val subminVersion = "0.1.0"
+
+def basicJavaOpts = Seq("-source", "1.6")
+
 lazy val commonSettings = Seq(
-  version            := "1.3.8",
+  version            := "1.3.9-SNAPSHOT",
   organization       := "de.sciss",
-  scalaVersion       := "2.11.7",
-  crossScalaVersions := Seq("2.11.7", "2.10.5"),
-  javacOptions      ++= Seq("-source", "1.6", "-target", "1.6"),
+  scalaVersion       := "2.11.8",
+  crossScalaVersions := Seq("2.11.8", "2.10.6"),
+  javacOptions                   := basicJavaOpts ++ Seq("-encoding", "utf8", "-Xlint:unchecked", "-target", "1.6"),
+  javacOptions in (Compile, doc) := basicJavaOpts,  // doesn't eat `-encoding` or `target`
   description        := "A TreeTable component for Swing",
   homepage           := Some(url(s"https://github.com/Sciss/${name.value}")),
   licenses           := Seq("LGPL v3+" -> url("http://www.gnu.org/licenses/lgpl-3.0.txt"))
@@ -30,7 +36,7 @@ lazy val publishSettings = Seq(
   pomIncludeRepository := { _ => false }
 )
 
-lazy val root: Project = Project(id = baseNameL, base = file("."))
+lazy val root = Project(id = baseNameL, base = file("."))
   .aggregate(javaProject, scalaProject)
   .dependsOn(javaProject, scalaProject) // i.e. root = full sub project. if you depend on root, will draw all sub modules.
   .settings(commonSettings)
@@ -59,6 +65,9 @@ lazy val scalaProject = Project(id = s"$baseNameL-scala", base = file("scala"))
       else
         "org.scala-lang.modules" %% "scala-swing" % "1.0.2"
     },
+    libraryDependencies ++= Seq(
+      "de.sciss" % "submin" % subminVersion % "test"
+    ),
     pomExtra := pomBase ++ pomDevsSciss
   )
 

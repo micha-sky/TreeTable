@@ -1,19 +1,31 @@
 package de.sciss.treetable
 
+import javax.swing.plaf.ColorUIResource
+
 import scala.swing._
 import javax.swing.{JSeparator, JTree, UIManager}
+
+import de.sciss.submin.Submin
+
 import scala.util.control.NonFatal
 import de.sciss.treetable.TreeTable.Path
+
 import scala.annotation.switch
 
 object ScalaDemo extends SimpleSwingApplication {
   override def startup(args: Array[String]): Unit = {
     try {
-      // val lafName = "javax.swing.plaf.nimbus.NimbusLookAndFeel"
-      // val lafName = "com.alee.laf.WebLookAndFeel"
-      val lafName = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-      UIManager.installLookAndFeel("Web Look And Feel", lafName)
-      UIManager.setLookAndFeel(lafName)
+      val isDark = args.contains("--dark")
+      Submin.install(isDark)
+      if (isDark) {
+        UIManager.put("Table.background", new ColorUIResource( 29,  32,  36))
+        UIManager.put("Table.foreground", new ColorUIResource(220, 220, 220))
+      }
+//      // val lafName = "javax.swing.plaf.nimbus.NimbusLookAndFeel"
+//      // val lafName = "com.alee.laf.WebLookAndFeel"
+//      val lafName = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+//      UIManager.installLookAndFeel("Web Look And Feel", lafName)
+//      UIManager.setLookAndFeel(lafName)
     } catch {
       case NonFatal(_) =>
     }
