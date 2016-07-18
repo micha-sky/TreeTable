@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Sciss/TreeTable.svg?branch=master)](https://travis-ci.org/Sciss/TreeTable)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.sciss/treetable-scala_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.sciss/treetable-scala_2.11)
 
-A TreeTable component for Swing. This started as a fork/clone from the Java project at [https://code.google.com/p/aephyr/](code.google.com/p/aephyr) -- "Swing components, accessories, utilities, etc for use in a GUI", released under the GNU LGPL v3+. The original author was `drael4...@gmail.com`.
+A TreeTable component for Swing. This started as a fork/clone from the Java project at [code.google.com/p/aephyr](https://code.google.com/p/aephyr/) -- "Swing components, accessories, utilities, etc for use in a GUI", released under the GNU LGPL v3+. The original author was `drael4...@gmail.com`.
 
 The Java component, in sub project `java`, is accompanied by Scala-Swing component, in sub project `scala`.
 
