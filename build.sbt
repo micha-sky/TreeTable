@@ -1,19 +1,26 @@
 lazy val baseName = "TreeTable"
-
 lazy val baseNameL = baseName.toLowerCase
+
+lazy val projectVersion = "1.3.9"
+lazy val mimaVersion    = "1.3.5"
 
 name := baseName
 
+// ---- scala main dependencies ----
+
+lazy val swingPlusVersion = "0.2.2"
+
 // ---- test dependencies ----
-lazy val subminVersion = "0.1.0"
+
+lazy val subminVersion = "0.2.1"
 
 def basicJavaOpts = Seq("-source", "1.6")
 
 lazy val commonSettings = Seq(
-  version            := "1.3.9-SNAPSHOT",
+  version            := projectVersion,
   organization       := "de.sciss",
   scalaVersion       := "2.11.8",
-  crossScalaVersions := Seq("2.11.8", "2.10.6"),
+  crossScalaVersions := Seq("2.12.1", "2.11.8", "2.10.6"),
   javacOptions                   := basicJavaOpts ++ Seq("-encoding", "utf8", "-Xlint:unchecked", "-target", "1.6"),
   javacOptions in (Compile, doc) := basicJavaOpts,  // doesn't eat `-encoding` or `target`
   description        := "A TreeTable component for Swing",
@@ -51,24 +58,20 @@ lazy val javaProject = Project(id = s"$baseNameL-java", base = file("java"))
     crossPaths       := false,
     javacOptions in Compile ++= Seq("-g", "-target", "1.6", "-source", "1.6"),
     javacOptions in (Compile, doc) := Nil,  // yeah right, sssssuckers
-    pomExtra := pomExtraBoth
+    pomExtra := pomExtraBoth,
+    mimaPreviousArtifacts := Set("de.sciss" % s"$baseNameL-java" % mimaVersion)
   )
 
 lazy val scalaProject = Project(id = s"$baseNameL-scala", base = file("scala"))
   .dependsOn(javaProject)
   .settings(commonSettings)
   .settings(
-    libraryDependencies += {
-      val sv = scalaVersion.value
-      if (sv startsWith "2.10")
-        "org.scala-lang" % "scala-swing" % sv
-      else
-        "org.scala-lang.modules" %% "scala-swing" % "1.0.2"
-    },
     libraryDependencies ++= Seq(
-      "de.sciss" % "submin" % subminVersion % "test"
+      "de.sciss" %% "swingplus" % swingPlusVersion,
+      "de.sciss" %  "submin"    % subminVersion % "test"
     ),
-    pomExtra := pomBase ++ pomDevsSciss
+    pomExtra := pomBase ++ pomDevsSciss,
+    mimaPreviousArtifacts := Set("de.sciss" %% s"$baseNameL-scala" % mimaVersion)
   )
 
 def pomExtraBoth = pomBase ++ pomDevsBoth
